@@ -1,0 +1,23 @@
+const sql = require("./db.js");
+
+const Category = function(category) {
+    this.title = category.name;
+    this.img = category.img;
+    this.created_by = category.created_by;
+    this.updated_on = category.updated_on;
+    this.updated_by = category.updated_by;
+    this.is_trash = category.is_trash;
+};
+Category.fetchAll = (result) => {
+    let query = "SELECT * FROM categories where is_trash != 1 ";
+    sql.query(query, (err, res) => {
+        if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+        }
+        console.log("users: ", res);
+        result(null, res);
+    });
+};
+module.exports = Category;

@@ -265,6 +265,17 @@ User.resendCode = (email,result)=>
     
   });
 }
+User.getUserEmail = (email,result)=> {
+    sql.query("SELECT * FROM users where is_confirmed = 1 AND email = ?", email, (err, res) => {
+      if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+      }
+      console.log("users: ", res);
+      result(null, res);
+  });
+}
 User.confirmCode = (code,result)=> {
   sql.query( "SELECT * FROM users where confirm_code = ?", code, (err, res) => {
     if (err) {

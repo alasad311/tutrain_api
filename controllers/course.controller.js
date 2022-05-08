@@ -1,8 +1,8 @@
-const Ads = require("../models/ads.model.js");
+const Courses = require("../models/courses.model.js");
 var path = require('path');
 
 //Fetch all ads from DB
-exports.allAds = (req, res) => {
+exports.allNewCourses = (req, res) => {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]  
 
@@ -13,7 +13,7 @@ exports.allAds = (req, res) => {
         });
         return;
   }
-  Ads.fetchAll((err, data) => {
+  Courses.fetchAllNewCourses((err, data) => {
     if (err)
       res.status(200).send({
         code:err.code,
