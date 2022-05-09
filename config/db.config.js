@@ -1,5 +1,5 @@
 module.exports = {
-    HOST: "localhost",
+    HOST: "scd.edu.om",
     USER: "scdeduom_tutad",
     PASSWORD: "#sB0)qJbfYP*",
     DB: "scdeduom_tutrain"

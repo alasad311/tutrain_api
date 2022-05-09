@@ -40,7 +40,7 @@ let transporter = nodemailer.createTransport({
     rejectUnauthorized: false,
   },
   auth: {
-    user: "noreply@oman-dev.com", // generated ethereal user
+    user: "test@oman-dev.com", // generated ethereal user
     pass: ".Z)9n45+j8pQ", // generated ethereal password
   },
 });
@@ -139,7 +139,7 @@ User.create = (newUser, result) => {
       '</style>'+
       '</body>'+
       '</html>';
-      sendEmail('noreply@oman-dev.com',newUser.email,"Confirm your account on Tutrain",html)
+      sendEmail('test@oman-dev.com',newUser.email,"Confirm your account on Tutrain",html)
     result(null, { id: res.insertId, ...newUser });
   });
 }
@@ -173,7 +173,7 @@ User.authenticateUser = (email,password,result)=>
 }
 User.resendCode = (email,result)=>
 {
-  sql.query( "SELECT * FROM users where email = ?", email, (err, res) => {
+  sql.query( "SELECT * FROM users where email = ? and is_confirmed = 1", email, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -253,7 +253,7 @@ User.resendCode = (email,result)=>
       '</style>'+
       '</body>'+
       '</html>';
-      sendEmail('noreply@oman-dev.com',res[0].email,"Confirm your account on Tutrain",html)
+      sendEmail('test@oman-dev.com',res[0].email,"Confirm your account on Tutrain",html)
       result(null,{
         sent: true
       });
