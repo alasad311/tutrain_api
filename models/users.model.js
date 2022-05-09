@@ -85,7 +85,7 @@ User.create = (newUser, result) => {
                             '<td style="vertical-align: top; text-align: left; padding: 0;" align="left" valign="top">'+
                               '<h1 id="logo" style="color: #6E5BAA; display: block; font-family: hybrea, proxima-nova, helvetica neue, helvetica, arial, geneva, sans-serif; font-size: 32px; font-weight: 200; text-align: left; margin: 0 0 40px;" align="left"><img src="https://www0.assets.heroku.com/email/heroku-logo.png" alt="heroku" width="120" height="42" style="outline: none; text-decoration: none; border: 0;" /></h1>'+ 
                               '<p style="margin: 20px 0;">Thanks for signing up with Tutrain! You must follow this link within 5 days of registration to activate your account:</p>'+
-                              '<p style="margin: 20px 0;"><a href="http://192.168.100.6:3000/users/accpet/'+newUser.confirm_code+'" style="color: #6E5BAA;">http://192.168.100.6:3000/users/accpet/'+newUser.confirm_code+'</a>'+
+                              '<p style="margin: 20px 0;"><a href="https://tapp.scd.edu.om/users/accpet/'+newUser.confirm_code+'" style="color: #6E5BAA;">https://tapp.scd.edu.om/users/accpet/'+newUser.confirm_code+'</a>'+
                               '<p style="margin: 20px 0;">'+
                               "Have fun, and don't hesitate to contact us with your feedback."+
                               '</p>'+
@@ -199,7 +199,7 @@ User.resendCode = (email,result)=>
                             '<td style="vertical-align: top; text-align: left; padding: 0;" align="left" valign="top">'+
                               '<h1 id="logo" style="color: #6E5BAA; display: block; font-family: hybrea, proxima-nova, helvetica neue, helvetica, arial, geneva, sans-serif; font-size: 32px; font-weight: 200; text-align: left; margin: 0 0 40px;" align="left"><img src="https://www0.assets.heroku.com/email/heroku-logo.png" alt="heroku" width="120" height="42" style="outline: none; text-decoration: none; border: 0;" /></h1>'+ 
                               '<p style="margin: 20px 0;">Thanks for signing up with Tutrain! You must follow this link within 5 days of registration to activate your account:</p>'+
-                              '<p style="margin: 20px 0;"><a href="http://localhost:3000/account/accept/12065593/b5efd1c8d58058a16de655676e69ef85" style="color: #6E5BAA;">https://id.heroku.com/account/accept/12065593/b5efd1c8d58058a16de655676e69ef85</a>'+
+                              '<p style="margin: 20px 0;"><a href="https://tapp.scd.edu.om/users/accpet/'+res[0].confirm_code+'" style="color: #6E5BAA;">https://tapp.scd.edu.om/users/accpet/'+res[0].confirm_code+'</a>'+
                               '<p style="margin: 20px 0;">'+
                               "Have fun, and don't hesitate to contact us with your feedback."+
                               '</p>'+
