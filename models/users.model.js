@@ -173,7 +173,7 @@ User.authenticateUser = (email,password,result)=>
 }
 User.resendCode = (email,result)=>
 {
-  sql.query( "SELECT * FROM users where email = ? and is_confirmed = 1", email, (err, res) => {
+  sql.query( "SELECT * FROM users where email = ? and is_confirmed = 0", email, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
