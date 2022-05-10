@@ -21,7 +21,7 @@ module.exports = app => {
     router.get("/category",category.allCategory)
 
     //Courses
-    router.get("/courses/new",course.allNewCourses)
+    router.get("/courses/new/:email",course.allNewCourses)
 
     app.use('/api/v1/', router);
   };

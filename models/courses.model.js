@@ -15,9 +15,9 @@ const Courses = function(courses) {
     this.updated_by = courses.updated_by;
     this.is_trash = courses.is_trash;
 };
-Courses.fetchAllNewCourses = (result) => {
-    let query = "SELECT * FROM courses where is_confirmed = 1 ORDER BY id DESC LIMIT 0,5";
-    sql.query(query, (err, res) => {
+Courses.fetchAllNewCourses = (email,result) => {
+    let query = "SELECT *  FROM courses LEFT JOIN users ON users.id = courses.user_id where is_confirmed = 1 AND users.email != ? ORDER BY id DESC LIMIT 0,5";
+    sql.query(query,email, (err, res) => {
         if (err) {
         console.log("error: ", err);
         result(null, err);

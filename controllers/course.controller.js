@@ -13,7 +13,7 @@ exports.allNewCourses = (req, res) => {
         });
         return;
   }
-  Courses.fetchAllNewCourses((err, data) => {
+  Courses.fetchAllNewCourses(req.params.email,(err, data) => {
     if (err)
       res.status(200).send({
         code:err.code,
