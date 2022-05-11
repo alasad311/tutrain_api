@@ -6,7 +6,8 @@ module.exports = app => {
     const ads = require("./controllers/ads.controller.js");
     const category = require("./controllers/category.controller.js");
     const course = require("./controllers/course.controller.js");
-
+    const search = require("./controllers/search.controller.js");
+    
     var router = require("express").Router();
     // Users
     router.post("/users", users.create);
@@ -22,6 +23,9 @@ module.exports = app => {
 
     //Courses
     router.get("/courses/new/:email",course.allNewCourses)
+
+    //Search
+    router.get("/search/:value",search.searchAll);
 
     app.use('/api/v1/', router);
   };
