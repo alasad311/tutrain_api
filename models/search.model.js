@@ -17,7 +17,8 @@ const Search = function(search) {
 };
 Search.All = (value,result) => {
     let query = "SELECT courses.name AS title, courses.img AS img, courses.rating AS rating FROM courses WHERE (name LIKE '%?%' OR description like '%?%' OR code like '%?%' OR tags like '%?%') UNION ALL SELECT users.fullname AS title, users.picture AS img, users.rating AS rating FROM users WHERE (fullname LIKE '%?%' OR tags like '%?%' OR about like '%?%')   limit 0,10";
-    sql.query(query,value, (err, res) => {
+    let values = [value,value,value,value,value,value,value]
+    sql.query(query,values, (err, res) => {
         if (err) {
         console.log("error: ", err);
         result(null, err);
