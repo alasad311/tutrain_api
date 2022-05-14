@@ -25,7 +25,9 @@ module.exports = app => {
     router.get("/courses/new/:email",course.allNewCourses)
 
     //Search
-    router.get("/search/:value",search.searchAll);
+    router.get("/search/all/:value/:page",search.searchAll);
+    router.get("/search/user/:value/:page",search.searchUser);
+    router.get("/search/courses/:value/:page",search.searchCourses);
 
     app.use('/api/v1/', router);
   };

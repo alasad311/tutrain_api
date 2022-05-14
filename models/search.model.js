@@ -15,9 +15,44 @@ const Search = function(search) {
     this.updated_by = courses.updated_by;
     this.is_trash = courses.is_trash;
 };
-Search.All = (value,result) => {
-    let query = "(SELECT courses.name AS title, courses.img AS img, courses.rating AS rating, 'course' AS stype FROM courses WHERE (name LIKE ? OR description like ? OR code like ? OR tags like ?) limit 0,10) UNION ALL (SELECT users.fullname AS title, users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?)   limit 0,10)";
-    let values = ['%'+value+'%','%'+value+'%','%'+value+'%','%'+value+'%','%'+value+'%','%'+value+'%','%'+value+'%']
+Search.All = (value,page,result) => {
+    let offset;
+    if(page != 0)
+        offset = page * 10;
+    let query = "(SELECT courses.name AS title, courses.img AS img, courses.rating AS rating, 'course' AS stype FROM courses WHERE (name LIKE ? OR description like ? OR code like ? OR tags like ?) limit ?,10) UNION ALL (SELECT users.fullname AS title, users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?)   limit ?,10)";
+    let values = ['%'+value+'%','%'+value+'%','%'+value+'%','%'+value+'%',page,'%'+value+'%','%'+value+'%','%'+value+'%',page]
+    sql.query(query,values, (err, res) => {
+        if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+        }
+        console.log("users: ", res);
+        result(null, res);
+    });
+};
+Search.User = (value,page,result) => {
+    let offset;
+    if(page != 0)
+        offset = page * 10;
+    let query = "SELECT users.fullname AS title, users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ? limit ?,10";
+    let values = ['%'+value+'%','%'+value+'%','%'+value+'%',offset]
+    sql.query(query,values, (err, res) => {
+        if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+        }
+        console.log("users: ", res);
+        result(null, res);
+    });
+};
+Search.Courses = (value,page,result) => {
+    let offset;
+    if(page != 0)
+        offset = page * 10;
+    let query = "SELECT courses.name AS title, courses.img AS img, courses.rating AS rating, 'course' AS stype FROM courses WHERE (name LIKE ? OR description like ? OR code like ? OR tags like ? limit ?,10";
+    let values = ['%'+value+'%','%'+value+'%','%'+value+'%','%'+value+'%',offset]
     sql.query(query,values, (err, res) => {
         if (err) {
         console.log("error: ", err);
