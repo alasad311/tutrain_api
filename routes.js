@@ -26,7 +26,7 @@ module.exports = app => {
 
     //Search
     router.get("/search/all/:value/:page",search.searchAll);
-    router.get("/search/user/:value/:page",search.searchUser);
+    router.get("/search/users/:value/:page",search.searchUser);
     router.get("/search/courses/:value/:page",search.searchCourses);
 
     app.use('/api/v1/', router);
