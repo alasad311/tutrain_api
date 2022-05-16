@@ -19,7 +19,7 @@ Search.All = (value,page,result) => {
     let offset = 0;
     if(page != 0)
         offset = page * 10;
-    let query = "(SELECT courses.name AS title, courses.img AS img, courses.rating AS rating, 'course' AS stype FROM courses WHERE (name LIKE ? OR description like ? OR code like ? OR tags like ?) limit ?,10) UNION ALL (SELECT users.fullname AS title, users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?) AND users.type != 'student'  limit ?,10)";
+    let query = "(SELECT courses.name AS title, course.duration AS duration,course.price AS price, 'Online' AS location,courses.img AS img, courses.rating AS rating, 'course' AS stype FROM courses WHERE (name LIKE ? OR description like ? OR code like ? OR tags like ?) limit ?,10) UNION ALL (SELECT users.fullname AS title, NULL AS duration,, NULL AS price,user.governorate_id AS location, users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?) AND users.type != 'student'  limit ?,10)";
     let values = ['%'+value+'%','%'+value+'%','%'+value+'%','%'+value+'%',offset,'%'+value+'%','%'+value+'%','%'+value+'%',offset]
     sql.query(query,values, (err, res) => {
         if (err) {
@@ -35,7 +35,7 @@ Search.User = (value,page,result) => {
     let offset = 0;
     if(page != 0)
         offset = page * 10;
-    let query = "SELECT users.fullname AS title, users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?) AND users.type != 'student' limit ?,10";
+    let query = "SELECT users.fullname AS title, NULL AS duration, NULL AS price,user.governorate_id AS location,users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?) AND users.type != 'student' limit ?,10";
     let values = ['%'+value+'%','%'+value+'%','%'+value+'%',offset]
     sql.query(query,values, (err, res) => {
         if (err) {
@@ -51,7 +51,7 @@ Search.Courses = (value,page,result) => {
     let offset = 0;
     if(page != 0)
         offset = page * 10;
-    let query = "SELECT courses.name AS title, courses.img AS img, courses.rating AS rating, 'course' AS stype FROM courses WHERE (name LIKE ? OR description like ? OR code like ? OR tags like ?) limit ?,10";
+    let query = "SELECT courses.name AS title, course.duration AS duration,course.price AS price, 'Online' AS location, courses.img AS img, courses.rating AS rating, 'course' AS stype FROM courses WHERE (name LIKE ? OR description like ? OR code like ? OR tags like ?) limit ?,10";
     let values = ['%'+value+'%','%'+value+'%','%'+value+'%','%'+value+'%',offset]
     sql.query(query,values, (err, res) => {
         if (err) {
