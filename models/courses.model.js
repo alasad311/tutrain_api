@@ -27,4 +27,16 @@ Courses.fetchAllNewCourses = (email,result) => {
         result(null, res);
     });
 };
+Courses.fetchCourseById = (id,result) => {
+    let query = "SELECT *  FROM courses LEFT JOIN users ON users.user_id = courses.user_id where courses.is_confirmed = 1 AND courses.id != ?";
+    sql.query(query,id, (err, res) => {
+        if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+        }
+        console.log("users: ", res);
+        result(null, res);
+    });
+};
 module.exports = Courses;

@@ -23,6 +23,7 @@ module.exports = app => {
 
     //Courses
     router.get("/courses/new/:email",course.allNewCourses)
+    router.get("/course/:id",course.getCourseById)
 
     //Search
     router.get("/search/all/:value/:page",search.searchAll);
