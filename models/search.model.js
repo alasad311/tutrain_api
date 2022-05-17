@@ -35,7 +35,7 @@ Search.User = (value, page, result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
-    let query = "SELECT users.fullname AS title, NULL AS duration,users.hour_price AS price, NULL AS price,users.wilayat_id AS location, users.tags,users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?) AND users.type != 'student' limit ?,10";
+    let query = "SELECT users.fullname AS title, NULL AS duration,users.hour_price AS price,users.wilayat_id AS location, users.tags,users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?) AND users.type != 'student' limit ?,10";
     let values = ['%' + value + '%', '%' + value + '%', '%' + value + '%', offset]
     sql.query(query, values, (err, res) => {
         if (err) {
