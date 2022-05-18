@@ -51,4 +51,16 @@ Courses.fetchCourseSections = (id,result) => {
         result(null, res);
     });
 };
+Courses.fetchCourseContent = (id,result) => {
+    let query = "SELECT *  FROM course_content WHERE course_id = ?";
+    sql.query(query,id, (err, res) => {
+        if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+        }
+        console.log("users: ", res);
+        result(null, res);
+    });
+};
 module.exports = Courses;
