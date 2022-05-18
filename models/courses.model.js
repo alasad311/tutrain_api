@@ -40,19 +40,7 @@ Courses.fetchCourseById = (id,result) => {
     });
 };
 Courses.fetchCourseSections = (id,result) => {
-    let query = "SELECT *  FROM course_section WHERE course_id = ?";
-    sql.query(query,id, (err, res) => {
-        if (err) {
-        console.log("error: ", err);
-        result(null, err);
-        return;
-        }
-        console.log("users: ", res);
-        result(null, res);
-    });
-};
-Courses.fetchCourseContent = (id,result) => {
-    let query = "SELECT *  FROM course_content WHERE course_id = ?";
+    let query = "SELECT *  FROM course_section LEFT JOIN course_content ON course_content.section_id = course_section.id WHERE course_id = 1";
     sql.query(query,id, (err, res) => {
         if (err) {
         console.log("error: ", err);
