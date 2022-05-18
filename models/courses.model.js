@@ -40,7 +40,7 @@ Courses.fetchCourseById = (id,result) => {
     });
 };
 Courses.fetchCourseSections = (id,result) => {
-    let query = "SELECT *  FROM course_section LEFT JOIN course_content ON course_content.section_id = course_section.id WHERE course_id = 1";
+    let query = {sql: "SELECT *  FROM course_section LEFT JOIN course_content ON course_content.section_id = course_section.id WHERE course_id = ?", nestTables: true};
     sql.query(query,id, (err, res) => {
         if (err) {
         console.log("error: ", err);
