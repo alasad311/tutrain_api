@@ -2,7 +2,7 @@ const Courses = require("../models/courses.model.js");
 const FlatToNested = require('flat-to-nested');
 
 var path = require('path');
-var flatToNested = new FlatToNested( /* can take a config object to use other property names */ );
+var flatToNested = new FlatToNested( id,section_id);
 
 //Fetch all ads from DB
 exports.allNewCourses = (req, res) => {
