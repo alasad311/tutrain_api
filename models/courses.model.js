@@ -1,4 +1,5 @@
 const sql = require("./db.js");
+const FlatToNested = require('flat-to-nested');
 
 const Courses = function(courses) {
     this.name = courses.name;
@@ -40,7 +41,7 @@ Courses.fetchCourseById = (id,result) => {
     });
 };
 Courses.fetchCourseSections = (id,result) => {
-    let query = {sql: "SELECT *  FROM course_section LEFT JOIN course_content ON course_content.section_id = course_section.id WHERE course_id = ?", nestTables: true};
+    let query = "SELECT *  FROM course_section LEFT JOIN course_content ON course_content.section_id = course_section.id WHERE course_id = ?";
     sql.query(query,id, (err, res) => {
         if (err) {
         console.log("error: ", err);
@@ -48,7 +49,7 @@ Courses.fetchCourseSections = (id,result) => {
         return;
         }
         console.log("users: ", res);
-        result(null, res);
+        result(null, flatToNested.convert(res));
     });
 };
 module.exports = Courses;
