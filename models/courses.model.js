@@ -1,5 +1,4 @@
 const sql = require("./db.js");
-const FlatToNested = require('flat-to-nested');
 
 const Courses = function(courses) {
     this.name = courses.name;
@@ -49,7 +48,7 @@ Courses.fetchCourseSections = (id,result) => {
         return;
         }
         console.log("users: ", res);
-        result(null, flatToNested.convert(res));
+        result(null, res);
     });
 };
 module.exports = Courses;
