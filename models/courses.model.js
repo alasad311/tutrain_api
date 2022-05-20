@@ -52,7 +52,7 @@ Courses.fetchCourseSections = (id,result) => {
         result(null, err);
         return;
         }
-        var nestedRows = func.convertToNested(rows, nestingOptions);
+        var nestedRows = func.convertToNested(res, nestingOptions);
         result(null, nestedRows);
     });
 };
