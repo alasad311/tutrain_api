@@ -40,20 +40,20 @@ Courses.fetchCourseById = (id,result) => {
     });
 };
 Courses.fetchCourseSections = (id,result) => {
-    let query = "SELECT * ,GROUP_CONCAT(course_content.youtube_video) AS videos FROM course_section LEFT JOIN course_content ON course_content.section_id = course_section.id WHERE course_id = ? GROUP BY course_section.id ";
-  
-    sql.query(query,id, (err, response) => {
+    let query = "SELECT * FROM course_section LEFT JOIN course_content ON course_content.section_id = course_section.id WHERE course_id = ? ";
+    var options = { sql: query, nestTables: true };
+    var nestingOptions = [
+        { tableName : 'course_section', pkey: 'id'},
+        { tableName : 'course_content', pkey: 'id', fkeys:[{table:'course_section',col:'section_id'}]},
+    ];
+    sql.query(options,id, (err, response) => {
         if (err) {
         console.log("error: ", err);
         result(null, err);
         return;
         }
-        response.map(
-            (res)=>res.videos=res.videos.split(',')
-              .reduce((ac, el, idx)=>{
-                ac.push({position: idx, videos:el}); return ac;
-              }, []));
-        result(null, response);
+        var nestedRows = func.convertToNested(response, nestingOptions);
+        result(null, JSON.stringify(nestedRows));
     });
 };
 module.exports = Courses;
