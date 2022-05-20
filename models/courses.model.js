@@ -39,7 +39,7 @@ Courses.fetchCourseById = (id,result) => {
         result(null, res);
     });
 };
-Courses.fetchCourseSections = (id,result) => {
+Courses.fetchCourseSections = (result) => {
     let query = "SELECT *  FROM course_section LEFT JOIN course_content ON course_content.section_id = course_section.id WHERE course_id = ?";
     var options = { sql: query, nestTables: true };
     var nestingOptions = [
@@ -53,7 +53,7 @@ Courses.fetchCourseSections = (id,result) => {
         return;
         }
         var nestedRows = func.convertToNested(rows, nestingOptions);
-        result(null, JSON.stringify(nestedRows));
+        result(null, nestedRows);
     });
 };
 module.exports = Courses;
