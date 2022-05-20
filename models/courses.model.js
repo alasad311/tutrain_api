@@ -1,5 +1,5 @@
 const sql = require("./db.js");
-
+const nested = require("node-mysql-nesting")
 const Courses = function(courses) {
     this.name = courses.name;
     this.img = courses.img;
@@ -52,8 +52,8 @@ Courses.fetchCourseSections = (id,result) => {
         result(null, err);
         return;
         }
-        var nestedRows = func.convertToNested(response, nestingOptions);
-        result(null, JSON.stringify(nestedRows));
+        var nestedRows = nested.convertToNested(response, nestingOptions);
+        result(null, nestedRows);
     });
 };
 module.exports = Courses;
