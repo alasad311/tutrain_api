@@ -41,12 +41,8 @@ Courses.fetchCourseById = (id,result) => {
 };
 Courses.fetchCourseSections = (id,result) => {
     let query = "SELECT * ,GROUP_CONCAT(course_content.youtube_video) AS videos FROM course_section LEFT JOIN course_content ON course_content.section_id = course_section.id WHERE course_id = ? GROUP BY course_section.id ";
-    var options = { sql: query, nestTables: true };
-    var nestingOptions = [
-        { tableName : 'course_section', pkey: 'id'},
-        { tableName : 'course_content', pkey: 'id', fkeys:[{table:'course_section',col:'id'}]},
-    ];
-    sql.query(options,id, (err, response) => {
+  
+    sql.query(query,id, (err, response) => {
         if (err) {
         console.log("error: ", err);
         result(null, err);
