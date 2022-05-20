@@ -1,8 +1,6 @@
 const Courses = require("../models/courses.model.js");
-const FlatToNested = require('flat-to-nested');
 
 var path = require('path');
-var flatToNested = new FlatToNested( id: 'id',parent: 'section_id');
 
 //Fetch all ads from DB
 exports.allNewCourses = (req, res) => {
@@ -65,7 +63,7 @@ exports.getCourseSections = (req, res) => {
         code:err.code,
       });
     else res.send({
-      response: flatToNested.convert(data)
+      response: data
     });
   });
 }

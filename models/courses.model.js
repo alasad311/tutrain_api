@@ -41,14 +41,19 @@ Courses.fetchCourseById = (id,result) => {
 };
 Courses.fetchCourseSections = (id,result) => {
     let query = "SELECT *  FROM course_section LEFT JOIN course_content ON course_content.section_id = course_section.id WHERE course_id = ?";
-    sql.query(query,id, (err, res) => {
+    var options = { sql: query, nestTables: true };
+    var nestingOptions = [
+        { tableName : 'course_section', pkey: 'id'},
+        { tableName : 'course_content', pkey: 'id', fkeys:[{table:'course_section',col:'id'}]},
+    ];
+    sql.query(options,id, (err, res) => {
         if (err) {
         console.log("error: ", err);
         result(null, err);
         return;
         }
-        console.log("users: ", res);
-        result(null, res);
+        var nestedRows = func.convertToNested(rows, nestingOptions);
+        result(null, JSON.stringify(nestedRows));
     });
 };
 module.exports = Courses;
