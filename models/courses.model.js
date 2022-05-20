@@ -52,11 +52,11 @@ Courses.fetchCourseSections = (id,result) => {
         result(null, err);
         return;
         }
-        response.map(
-            (res)=>res.videos=res.videos.split(',')
-              .reduce((ac, el, idx)=>{
-                ac.push({position: idx, videos:el}); return ac;
-              }, []));
+        // response.map(
+        //     (res)=>res.videos=res.videos.split(',')
+        //       .reduce((ac, el, idx)=>{
+        //         ac.push({position: idx, videos:el}); return ac;
+        //       }, []));
         result(null, response);
     });
 };
