@@ -58,7 +58,7 @@ Courses.fetchCourseSections = (id,result) => {
     });
 };
 Courses.fetchCoursesOrderByUser = (id,user,result) => {
-    let query = "SELECT *   FROM orders  WHERE orders.course_id = ? AND orders.user_id = ?";
+    let query = "SELECT *   FROM orders LEFT JOIN users ON users.id = orders.user_id  WHERE orders.course_id = ? AND users.email = ?";
     sql.query(query,[id,user], (err, res) => {
         if (err) {
         console.log("error: ", err);
