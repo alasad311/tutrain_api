@@ -25,6 +25,7 @@ module.exports = app => {
     router.get("/courses/new/:email",course.allNewCourses)
     router.get("/course/:id",course.getCourseById)
     router.get("/course/sections/:id",course.getCourseSections)
+    router.get("/course/paied/:id/:user", course.getPaidStatus)
     
 
     //Search

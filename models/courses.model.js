@@ -44,6 +44,7 @@ Courses.fetchCourseSections = (id,result) => {
     var options = { sql: query, nestTables: true };
     var nestingOptions = [
         { tableName : 'course_section', pkey: 'id'},
+        { tableName : 'course_section', pkey: 'id'},
         { tableName : 'course_content', pkey: 'id', fkeys:[{table:'course_section',col:'section_id'}]},
     ];
     sql.query(options,id, (err, response) => {
@@ -54,6 +55,18 @@ Courses.fetchCourseSections = (id,result) => {
         }
         var nestedRows = nested.convertToNested(response, nestingOptions);
         result(null, nestedRows);
+    });
+};
+Courses.fetchCoursesOrderByUser = (id,user,result) => {
+    let query = "SELECT *   FROM orders  WHERE orders.course_id = ? AND orders.user_id = ?";
+    sql.query(query,[id,user], (err, res) => {
+        if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+        }
+        console.log("users: ", res);
+        result(null, res);
     });
 };
 module.exports = Courses;
