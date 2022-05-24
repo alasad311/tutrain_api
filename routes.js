@@ -15,6 +15,7 @@ module.exports = app => {
     router.post("/users/login", users.loginUser);
     router.post("/users/resend", users.resendConfirmaton)
     router.get("/users/:email", users.getUserByEmail);
+    router.get("/user/:id", users.getUserByID);
 
     //Ads
     router.get("/ads", ads.allAds);
