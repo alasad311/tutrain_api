@@ -13,14 +13,14 @@ exports.createOrder = (req, res) => {
         return;
     }
 
-    const Orders = new Orders({
+    const Order = new Orders({
         course_id: req.body.course_id,
         tutor_id: req.body.tutor_id,
         paid_amount: req.body.paid_amount,
         user_id: req.body.user_id
     });
 
-    Orders.createOrder(Orders, (err, data) => {
+    Orders.createOrder(Order, (err, data) => {
         if (err)
             res.status(200).send({
                 code: err.code,
