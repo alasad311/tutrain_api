@@ -143,7 +143,7 @@ exports.create = (req, res) => {
           });
           return;
     }
-    Users.getUserEmail(req.params.id, (err, data) => {
+    Users.getUserDetailsByID(req.params.id, (err, data) => {
       if (err)
         res.status(200).send({
           code:err.code,
