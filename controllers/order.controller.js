@@ -21,7 +21,7 @@ exports.createOrder = (req, res) => {
         user_id: req.body.user_id
     });
 
-    Orders.createOrder((err, data) => {
+    Orders.createOrder(Orders, (err, data) => {
         if (err)
             res.status(200).send({
                 code: err.code,
