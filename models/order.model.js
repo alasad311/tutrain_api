@@ -8,7 +8,7 @@ const Orders = function(order) {
     this.user_id = order.user_id;
 };
 Orders.createOrder = (newOrder, result) => {
-    sql.query("INSERT INTO users SET ?", newOrder, (err, res) => {
+    sql.query("INSERT INTO orders SET ?", newOrder, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
