@@ -17,7 +17,6 @@ exports.createOrder = (req, res) => {
         course_id: req.body.course_id,
         tutor_id: req.body.tutor_id,
         paid_amount: req.body.paid_amount,
-        order_number: req.body.order_number,
         user_id: req.body.user_id
     });
 

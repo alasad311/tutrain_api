@@ -4,7 +4,6 @@ const Orders = function(order) {
     this.course_id = order.course_id;
     this.tutor_id = order.tutor_id;
     this.paid_amount = order.paid_amount;
-    this.date = order.date;
     this.order_number = order.order_number;
     this.user_id = order.user_id;
 };
