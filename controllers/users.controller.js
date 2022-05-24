@@ -28,7 +28,7 @@ exports.create = (req, res) => {
         degree : req.body.degree,
         specialization : req.body.specialization,
         governorate : req.body.governorate,
-        locaility: req.body.locaility,
+        locality: req.body.locality,
         wilayat : req.body.wilayat,
         id_card : req.body.id_card,
         about : req.body.about,
