@@ -35,7 +35,7 @@ module.exports = app => {
     router.get("/search/courses/:value/:page", search.searchCourses);
 
     //Orders
-    router.put("/order", order.createOrder)
+    router.post("/order", order.createOrder)
 
     app.use('/api/v1/', router);
 };
