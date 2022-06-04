@@ -8,7 +8,7 @@ const Reports = function(report) {
     this.date_created = order.date_created;
 };
 Reports.createReport = (newOrder, result) => {
-    sql.query("INSERT INTO orders SET ?", newOrder, (err, res) => {
+    sql.query("INSERT INTO reports SET ?", newOrder, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);

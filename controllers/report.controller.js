@@ -13,14 +13,13 @@ exports.createReport = (req, res) => {
         return;
     }
 
-    const Order = new Orders({
-        course_id: req.body.course_id,
+    const Report = new Reports({
+        user_id: req.body.user_id,
         tutor_id: req.body.tutor_id,
-        paid_amount: req.body.paid_amount,
-        user_id: req.body.user_id
+        feedback: req.body.feedback,
     });
 
-    Reports.createReport(Order, (err, data) => {
+    Reports.createReport(Report, (err, data) => {
         if (err)
             res.status(200).send({
                 code: err.code,
