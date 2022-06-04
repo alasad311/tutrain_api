@@ -8,6 +8,7 @@ module.exports = app => {
     const course = require("./controllers/course.controller.js");
     const search = require("./controllers/search.controller.js");
     const order = require("./controllers/order.controller.js");
+    const report = require("./controllers/report.controller.js");
 
     var router = require("express").Router();
     // Users
@@ -37,6 +38,9 @@ module.exports = app => {
 
     //Orders
     router.post("/order", order.createOrder)
+
+    //Orders
+    router.post("/report", report.createReport)
 
     app.use('/api/v1/', router);
 };
