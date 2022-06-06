@@ -9,6 +9,7 @@ module.exports = app => {
     const search = require("./controllers/search.controller.js");
     const order = require("./controllers/order.controller.js");
     const report = require("./controllers/report.controller.js");
+    const slot = require("./controllers/slot.controller.js");
 
     var router = require("express").Router();
     // Users
@@ -41,6 +42,9 @@ module.exports = app => {
 
     //Orders
     router.post("/report", report.createReport)
+    
+    //Orders
+    router.post("/slot", slot.createSlot)
 
     app.use('/api/v1/', router);
 };
