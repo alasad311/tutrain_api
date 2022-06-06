@@ -1,4 +1,4 @@
-const Slot = require("../models/req.body.model.js");
+const Slot = require("../models/slot.model.js");
 var path = require('path');
 
 //Fetch all ads from DB
