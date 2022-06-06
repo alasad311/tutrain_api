@@ -28,7 +28,7 @@ Slots.createSlot = (newSlot, result) => {
                 result(null, { id: res.insertId, ...newSlot });
             });
         }else{
-            result(null, "duplicate");
+            result(null, {results: "duplicate"});
         }
        
     });
