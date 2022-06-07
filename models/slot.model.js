@@ -1,8 +1,10 @@
 const sql = require("./db.js");
-var admin = require("firebase-admin");
+const admin = require('firebase-admin');
+const serviceAccount = require("../tutrain-e774e-firebase-adminsdk-gxssy-62965fb283.json");
 
-var serverKey = require("../tutrain-e774e-firebase-adminsdk-gxssy-62965fb283.json");
-var fcm = new FCM(serverKey);
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
 const Slots = function(slot) {
     this.user_id = slot.user_id;
     this.tutor_id = slot.tutor_id;
@@ -34,27 +36,18 @@ Slots.createSlot = (newSlot, result) => {
                     result(null, err);
                     return;
                 } else {
-                    var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
-                        to: tutorToken,
-                        //collapse_key: 'your_collapse_key',
-
+                    const messaging = admin.messaging()
+                    var payload = {
+                        token: tutorToken,
                         notification: {
                             title: 'New Session Requested',
                             body: userFullname + ' has request a session on ' + newSlot.slot + " from: " + newSlot.timefrom + " to: " + newSlot.timeto + "\n Do you accpet?"
                         },
-
-                        // data: { //you can send only notification or only data(or include both)
-                        //     my_key: 'my value',
-                        //     my_another_key: 'my another value'
-                        // }
-                    }
-
-                    fcm.send(message, function(err, response) {
-                        if (err) {
-                            console.log("Something has gone wrong!")
-                        } else {
-                            console.log("Successfully sent with response: ", response)
-                        }
+                        topic: 'topic'
+                        };
+                    messaging.send(payload)
+                    .then((result) => {
+                        console.log(result)
                     })
                 }
 
