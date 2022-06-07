@@ -45,7 +45,7 @@ Slots.createSlot = (newSlot, result) => {
                                         userFullName: ""+userFullname,
                                         slotDate: ""+newSlot.slot,
                                         timeFrom: ""+timefrom,
-                                        timeTo: ""+timeto,
+                                        timeTo: ""+timeto
                                       }
                                 };
                             messaging.send(payload)
