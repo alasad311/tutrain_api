@@ -10,6 +10,10 @@ const Slots = function(slot) {
     this.timeto = slot.timeto;
     this.duration = slot.duration;
 };
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
+const messaging = admin.messaging()
 Slots.createSlot = (newSlot, result) => {
     sql.query("SELECT * FROM temp_booking WHERE user_id = ? AND tutor_id = ? AND slot = ? AND timefrom = ? AND timeto = ? AND duration = ? AND is_trash != 1 ", [newSlot.user_id, newSlot.tutor_id, newSlot.slot, newSlot.timefrom, newSlot.timeto, newSlot.duration], (err, res) => {
         if (err) {
@@ -30,10 +34,6 @@ Slots.createSlot = (newSlot, result) => {
                             result(null, err);
                             return;
                         } else {
-                            admin.initializeApp({
-                                credential: admin.credential.cert(serviceAccount)
-                              });
-                            const messaging = admin.messaging()
                             var payload = {
                                     token: tutorToken,
                                     notification: {
@@ -46,9 +46,9 @@ Slots.createSlot = (newSlot, result) => {
                                 console.log(result)
                             })
                             console.log("users: ", res);
-                            
+                            result(null, { id: res.insertId, ...newSlot });
                         }
-                        result(null, { id: res.insertId, ...newSlot });
+                        
                     });
                 });
             });
