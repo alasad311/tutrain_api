@@ -1,6 +1,6 @@
 const sql = require("./db.js");
-// const admin = require('firebase-admin');
-// const serviceAccount = require("../tutrain-e774e-firebase-adminsdk-gxssy-62965fb283.json");
+const admin = require('firebase-admin');
+const serviceAccount = require("../tutrain-e774e-firebase-adminsdk-gxssy-62965fb283.json");
 
 const Slots = function(slot) {
     this.user_id = slot.user_id;
@@ -33,22 +33,23 @@ Slots.createSlot = (newSlot, result) => {
                     result(null, err);
                     return;
                 } else {
-                    // admin.initializeApp({
-                    //     credential: admin.credential.cert(serviceAccount)
-                    //   });
-                    // const messaging = admin.messaging()
-                    // var payload = {
-                    //     token: tutorToken,
-                    //     notification: {
-                    //         title: 'New Session Requested',
-                    //         body: userFullname + ' has request a session on ' + newSlot.slot + " from: " + newSlot.timefrom + " to: " + newSlot.timeto + "\n Do you accpet?"
-                    //     },
-                    //     topic: 'topic'
-                    //     };
-                    // messaging.send(payload)
-                    // .then((result) => {
-                    //     console.log(result)
-                    // })
+                    admin.initializeApp({
+                        credential: admin.credential.cert(serviceAccount)
+                      });
+                    const messaging = admin.messaging()
+                    var payload = {
+                            token: tutorToken,
+                            notification: {
+                                title: 'New Session Requested',
+                                body: userFullname + ' has request a session on ' + newSlot.slot + " from: " + newSlot.timefrom + " to: " + newSlot.timeto + "\nDo you accpet?"
+                            }
+                        };
+                    messaging.send(payload)
+                    .then((result) => {
+                        console.log(result)
+                    })
+                    console.log("users: ", res);
+                    result(null, { id: res.insertId, ...newSlot });
                 }
 
             });
