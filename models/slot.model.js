@@ -1,7 +1,7 @@
 const sql = require("./db.js");
 var admin = require("firebase-admin");
 
-var serviceAccount = require("../tutrain-e774e-firebase-adminsdk-gxssy-62965fb283.json");
+var serverKey = require("../tutrain-e774e-firebase-adminsdk-gxssy-62965fb283.json");
 var fcm = new FCM(serverKey);
 const Slots = function(slot) {
     this.user_id = slot.user_id;
