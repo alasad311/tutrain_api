@@ -14,12 +14,12 @@ exports.createSlot = (req, res) => {
     }
 
     const Slots = new Slot({
-        user_id : req.body.user_id,
-        tutor_id : req.body.tutor_id,
-        slot : req.body.slot,
-        timefrom : req.body.timefrom,
-        timeto : req.body.timeto,
-        duration : req.body.duration,
+        user_id: req.body.user_id,
+        tutor_id: req.body.tutor_id,
+        slot: req.body.slot,
+        timefrom: req.body.timefrom,
+        timeto: req.body.timeto,
+        duration: req.body.duration,
     });
 
     Slot.createSlot(Slots, (err, data) => {
