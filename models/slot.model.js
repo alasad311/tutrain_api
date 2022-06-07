@@ -19,40 +19,40 @@ Slots.createSlot = (newSlot, result) => {
         }
         let tutorToken;
         let userFullname;
-
-        sql.query("SELECT pushtoken FROM users WHERE user_id = ?", newSlot.tutor_id, (err, res) => {
-            tutorToken = res[0]['pushtoken'];
-        });
-        sql.query("SELECT fullname FROM users WHERE user_id = ?", newSlot.user_id, (err, res) => {
-            userFullname = res[0]['fullname'];
-        });
         if (res.length == 0) {
-            sql.query("INSERT INTO temp_booking SET ?", newSlot, (err, res) => {
-                if (err) {
-                    console.log("error: ", err);
-                    result(null, err);
-                    return;
-                } else {
-                    admin.initializeApp({
-                        credential: admin.credential.cert(serviceAccount)
-                      });
-                    const messaging = admin.messaging()
-                    var payload = {
-                            token: tutorToken,
-                            notification: {
-                                title: 'New Session Requested',
-                                body: userFullname + ' has request a session on ' + newSlot.slot + " from: " + newSlot.timefrom + " to: " + newSlot.timeto + "\nDo you accpet?"
-                            }
-                        };
-                    messaging.send(payload)
-                    .then((result) => {
-                        console.log(result)
-                    })
-                    console.log("users: ", res);
-                    result(null, { id: res.insertId, ...newSlot });
-                }
-
+            sql.query("SELECT pushtoken FROM users WHERE user_id = ?", newSlot.tutor_id, (err, res) => {
+                tutorToken = res[0]['pushtoken'];
+                sql.query("SELECT fullname FROM users WHERE user_id = ?", newSlot.user_id, (err, res) => {
+                    userFullname = res[0]['fullname'];
+                    sql.query("INSERT INTO temp_booking SET ?", newSlot, (err, res) => {
+                        if (err) {
+                            console.log("error: ", err);
+                            result(null, err);
+                            return;
+                        } else {
+                            admin.initializeApp({
+                                credential: admin.credential.cert(serviceAccount)
+                              });
+                            const messaging = admin.messaging()
+                            var payload = {
+                                    token: tutorToken,
+                                    notification: {
+                                        title: 'New Session Requested',
+                                        body: userFullname + ' has request a session on ' + newSlot.slot + " from: " + newSlot.timefrom + " to: " + newSlot.timeto,
+                                    }
+                                };
+                            messaging.send(payload)
+                            .then((result) => {
+                                console.log(result)
+                            })
+                            console.log("users: ", res);
+                            
+                        }
+                        result(null, { id: res.insertId, ...newSlot });
+                    });
+                });
             });
+            
         } else {
             result(null, { results: "duplicate" });
         }
