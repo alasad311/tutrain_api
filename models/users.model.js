@@ -28,6 +28,7 @@ const User = function(user) {
     this.is_trash = user.is_trash;
     this.is_confirmed = user.is_confirmed;
     this.confirm_code = user.confirm_code;
+    this.pushtoken = user.pushtoken;
 };
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
@@ -282,17 +283,7 @@ User.getUserDetailsByID = (id, result) => {
         result(null, res);
     });
 }
-User.updateToken = (id, token, result) => {
-    sql.query("UPDATE users SET pushtoken = ? WHERE user_id = ?", [token, id], (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(null, err);
-            return;
-        }
-        console.log("users: ", res);
-        result(null, res);
-    });
-}
+
 User.confirmCode = (code, result) => {
     sql.query("SELECT * FROM users where confirm_code = ?", code, (err, res) => {
         if (err) {
