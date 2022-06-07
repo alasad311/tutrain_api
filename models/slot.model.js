@@ -2,9 +2,6 @@ const sql = require("./db.js");
 const admin = require('firebase-admin');
 const serviceAccount = require("../tutrain-e774e-firebase-adminsdk-gxssy-62965fb283.json");
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-  });
 const Slots = function(slot) {
     this.user_id = slot.user_id;
     this.tutor_id = slot.tutor_id;
@@ -36,6 +33,9 @@ Slots.createSlot = (newSlot, result) => {
                     result(null, err);
                     return;
                 } else {
+                    admin.initializeApp({
+                        credential: admin.credential.cert(serviceAccount)
+                      });
                     const messaging = admin.messaging()
                     var payload = {
                         token: tutorToken,
