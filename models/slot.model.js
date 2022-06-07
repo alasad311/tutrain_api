@@ -42,10 +42,10 @@ Slots.createSlot = (newSlot, result) => {
                                     },
                                     data: {
                                         bookID: ""+res.insertId,
-                                        userFullName: userFullname,
-                                        slotDate: newSlot.slot,
-                                        timeFrom: timefrom,
-                                        timeTo: timeto,
+                                        userFullName: ""+userFullname,
+                                        slotDate: ""+newSlot.slot,
+                                        timeFrom: ""+timefrom,
+                                        timeTo: ""+timeto,
                                       }
                                 };
                             messaging.send(payload)
