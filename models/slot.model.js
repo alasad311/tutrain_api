@@ -41,8 +41,7 @@ Slots.createSlot = (newSlot, result) => {
                                         body: userFullname + ' has request a session on ' + newSlot.slot + " from: " + newSlot.timefrom + " to: " + newSlot.timeto,
                                     },
                                     data: {
-                                        "booking" : res.insertId,
-                                  
+                                        booking : res.insertId,
                                     }
                                 };
                             messaging.send(payload)
