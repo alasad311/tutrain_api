@@ -290,8 +290,15 @@ User.updateToken = (id,token, result) => {
             result(null, err);
             return;
         }
-        console.log("users: ", res);
-        result(null, res);
+        sql.query("SELECT * FROM users where user_id = ?", id, (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+            console.log("users: ", res);
+            result(null, res);
+        });
     });
 }
 
