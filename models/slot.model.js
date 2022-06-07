@@ -43,7 +43,8 @@ Slots.createSlot = (newSlot, result) => {
                                     data: {
                                         bookID: ""+res.insertId,
                                         userFullName: ""+userFullname,
-                                        
+                                        slotDate: ""+newSlot.slot,
+                                       
                                       }
                                 };
                             messaging.send(payload)
