@@ -15,12 +15,12 @@ const Search = function(search) {
     this.updated_by = courses.updated_by;
     this.is_trash = courses.is_trash;
 };
-Search.All = (value, page, result) => {
+Search.All = (value, page,id, result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
-    let query = "(SELECT courses.id AS id,courses.name AS title, courses.duration AS duration,courses.price AS price, 'Online' AS location,courses.tags,courses.img AS img, courses.rating AS rating, 'course' AS stype FROM courses WHERE (name LIKE ? OR description like ? OR code like ? OR tags like ?) limit ?,10) UNION ALL (SELECT users.user_id AS id,users.fullname AS title, NULL AS duration, users.hour_price AS price,CONCAT(users.wilayat,',',users.locality) AS location, users.tags, users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?) AND users.type != 'student'  limit ?,10)";
-    let values = ['%' + value + '%', '%' + value + '%', '%' + value + '%', '%' + value + '%', offset, '%' + value + '%', '%' + value + '%', '%' + value + '%', offset]
+    let query = "(SELECT courses.id AS id,courses.name AS title, courses.duration AS duration,courses.price AS price, 'Online' AS location,courses.tags,courses.img AS img, courses.rating AS rating, 'course' AS stype FROM courses WHERE (name LIKE ? OR description like ? OR code like ? OR tags like ?) limit ?,10) UNION ALL (SELECT users.user_id AS id,users.fullname AS title, NULL AS duration, users.hour_price AS price,CONCAT(users.wilayat,',',users.locality) AS location, users.tags, users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?) AND users.type != 'student' and users.user_id = ?  limit ?,10)";
+    let values = ['%' + value + '%', '%' + value + '%', '%' + value + '%', '%' + value + '%', offset, '%' + value + '%', '%' + value + '%', '%' + value + '%',id, offset]
     sql.query(query, values, (err, res) => {
         if (err) {
             console.log("error: ", err);
