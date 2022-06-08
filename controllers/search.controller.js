@@ -14,15 +14,18 @@ exports.searchAll = (req, res) => {
         });
         return;
   }
-  Search.All(req.params.value,req.params.page,userID,(err, data) => {
-    if (err)
-      res.status(200).send({
-        code:err.code,
+  res.send({
+        response: userID
       });
-    else res.send({
-      response: data
-    });
-  });
+  // Search.All(req.params.value,req.params.page,userID,(err, data) => {
+  //   if (err)
+  //     res.status(200).send({
+  //       code:err.code,
+  //     });
+  //   else res.send({
+  //     response: data
+  //   });
+  // });
 }
 exports.searchUser = (req, res) => {
   const authHeader = req.headers['authorization']
