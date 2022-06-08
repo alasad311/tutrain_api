@@ -31,11 +31,11 @@ Search.All = (value, page,id, result) => {
         result(null, res);
     });
 };
-Search.User = (value, page, result) => {
+Search.User = (value, page,id, result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
-    let query = "SELECT users.user_id AS id, users.fullname AS title, NULL AS duration,users.hour_price AS price,CONCAT(users.wilayat,',',users.locality) AS location, users.tags,users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?) AND users.type != 'student' limit ?,10";
+    let query = "SELECT users.user_id AS id, users.fullname AS title, NULL AS duration,users.hour_price AS price,CONCAT(users.wilayat,',',users.locality) AS location, users.tags,users.picture AS img, users.rating AS rating, 'user' AS stype FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?) AND users.type != 'student' AND users.user_id != ? limit ?,10";
     let values = ['%' + value + '%', '%' + value + '%', '%' + value + '%', offset]
     sql.query(query, values, (err, res) => {
         if (err) {
