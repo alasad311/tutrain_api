@@ -15,7 +15,7 @@ exports.searchAll = (req, res) => {
         return;
   }
   res.send({
-        response: console.log(JSON.stringify(req.headers))
+        response: JSON.stringify(req.headers)
 
       });
   // Search.All(req.params.value,req.params.page,userID,(err, data) => {
