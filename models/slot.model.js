@@ -111,12 +111,12 @@ Slots.updateSlot = (accpeted, id, result) => {
                                 console.log(result)
                             })
                         console.log("users: ", res);
-                        result(null, { id: res.insertId, ...newSlot });
+                        result(null, { status: "updated" })
                     }
                 });
             });
         });
-        result(null, { status: "updated" })
+
     })
 }
 module.exports = Slots;
