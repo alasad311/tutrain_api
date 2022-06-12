@@ -24,7 +24,7 @@ Slots.createSlot = (newSlot, result) => {
         let tutorToken;
         let userFullname;
         if (res.length == 0) {
-            sql.query("SELECT pushtoken FROM users WHERE user_id = ?", newSlot.tutor_id, (err, res) => {
+            sql.query("SELECT * FROM users WHERE user_id = ?", newSlot.tutor_id, (err, res) => {
                 tutorToken = res[0]['pushtoken'];
                 sql.query("SELECT fullname FROM users WHERE user_id = ?", newSlot.user_id, (err, res) => {
                     userFullname = res[0]['fullname'];
@@ -47,11 +47,7 @@ Slots.createSlot = (newSlot, result) => {
                                     slotDate: "" + newSlot.slot,
                                     timeFrom: "" + newSlot.timefrom,
                                     timeTo: "" + newSlot.timeto,
-                                },
-                                
-                            options:{
-                                priority: "high",
-                              }
+                                }
                             }
                             messaging.send(payload)
                                 .then((result) => {
@@ -83,12 +79,12 @@ Slots.updateSlot = (accpeted, id, result) => {
         let data;
         let tutorToken;
         let userFullname;
-        let tutorID;
+        let tutor;
         sql.query("SELECT * FROM temp_booking where temp_booking.id = ?", id, (err, res) => {
             data = res;
             sql.query("SELECT pushtoken FROM users WHERE user_id = ?", data[0]['user_id'], (err, res) => {
                 tutorToken = res[0]['pushtoken'];
-                sql.query("SELECT fullname FROM users WHERE user_id = ?", data[0]['tutor_id'], (err, res) => {
+                sql.query("SELECT * FROM users WHERE user_id = ?", data[0]['tutor_id'], (err, res) => {
                     userFullname = res[0]['fullname'];
                     if (err) {
                         console.log("error: ", err);
@@ -110,11 +106,13 @@ Slots.updateSlot = (accpeted, id, result) => {
                             data: {
                                 type: "SESSIONRESPONSE",
                                 accpeted: status,
+                                tutorDetails: res[0],
                                 bookID: "" + data[0]['id'],
                                 userFullName: "" + userFullname,
                                 slotDate: "" + data[0]['slot'],
                                 timeFrom: "" + data[0]['timefrom'],
                                 timeTo: "" + data[0]['timeto'],
+                                duration: "" + data[0]['duration'],
                             }
                         };
                         messaging.send(payload)
