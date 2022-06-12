@@ -41,6 +41,7 @@ Slots.createSlot = (newSlot, result) => {
                                     body: userFullname + ' has request a session on ' + newSlot.slot + " from: " + newSlot.timefrom + " to: " + newSlot.timeto,
                                 },
                                 data: {
+                                    type: "NEWSESSION",
                                     bookID: "" + res.insertId,
                                     userFullName: "" + userFullname,
                                     slotDate: "" + newSlot.slot,
@@ -103,6 +104,7 @@ Slots.updateSlot = (accpeted, id, result) => {
                                 body: userFullname + ' has ' + status + ' your session on ' + data[0]['slot'] + " this order will be cancelled within 2 hours of no payment method",
                             },
                             data: {
+                                type: "SESSIONRESPONSE",
                                 bookID: "" + data[0]['id'],
                                 userFullName: "" + userFullname,
                                 slotDate: "" + data[0]['slot'],
