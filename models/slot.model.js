@@ -86,38 +86,38 @@ Slots.updateSlot = (accpeted, id, result) => {
                 sql.query("SELECT fullname FROM users WHERE tutor_id = ?", data[0]['tutor_id'], (err, res) => {
                     userFullname = res[0]['fullname'];
                     result(null, { data, res })
-                    if (err) {
-                        console.log("error: ", err);
-                        result(null, err);
-                        return;
-                    } else {
-                        let status = "";
-                        if (accpeted)
-                            status = "Accepted";
-                        else
-                            status = "Rejected";
+                        // if (err) {
+                        //     console.log("error: ", err);
+                        //     result(null, err);
+                        //     return;
+                        // } else {
+                        //     let status = "";
+                        //     if (accpeted)
+                        //         status = "Accepted";
+                        //     else
+                        //         status = "Rejected";
 
-                        var payload = {
-                            token: tutorToken,
-                            notification: {
-                                title: 'Session ' + status,
-                                body: userFullname + ' has ' + status + ' your session on ' + data[0]['slot'] + " this order will be cancelled within 2 hours of no payment method",
-                            },
-                            data: {
-                                bookID: "" + data[0]['id'],
-                                userFullName: "" + userFullname,
-                                slotDate: "" + data[0]['slot'],
-                                timeFrom: "" + data[0]['timefrom'],
-                                timeTo: "" + data[0]['timeto'],
-                            }
-                        };
-                        messaging.send(payload)
-                            .then((result) => {
-                                console.log(result)
-                            })
-                        console.log("users: ", res);
-                        //result(null, { status: "updated" })
-                    }
+                    //     var payload = {
+                    //         token: tutorToken,
+                    //         notification: {
+                    //             title: 'Session ' + status,
+                    //             body: userFullname + ' has ' + status + ' your session on ' + data[0]['slot'] + " this order will be cancelled within 2 hours of no payment method",
+                    //         },
+                    //         data: {
+                    //             bookID: "" + data[0]['id'],
+                    //             userFullName: "" + userFullname,
+                    //             slotDate: "" + data[0]['slot'],
+                    //             timeFrom: "" + data[0]['timefrom'],
+                    //             timeTo: "" + data[0]['timeto'],
+                    //         }
+                    //     };
+                    //     messaging.send(payload)
+                    //         .then((result) => {
+                    //             console.log(result)
+                    //         })
+                    //     console.log("users: ", res);
+                    //     //result(null, { status: "updated" })
+                    // }
                 });
             });
         });
