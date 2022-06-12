@@ -80,6 +80,7 @@ Slots.updateSlot = (accpeted, id, result) => {
         let userFullname;
         sql.query("SELECT * FROM temp_booking where temp_booking.id = ?", id, (err, res) => {
             data = res;
+            result(null, data)
             sql.query("SELECT pushtoken FROM users WHERE user_id = ?", data[0]['user_id'], (err, res) => {
                 tutorToken = res[0]['pushtoken'];
                 sql.query("SELECT fullname FROM users WHERE tutor_id = ?", data[0]['tutor_id'], (err, res) => {
@@ -114,7 +115,7 @@ Slots.updateSlot = (accpeted, id, result) => {
                                 console.log(result)
                             })
                         console.log("users: ", res);
-                        result(null, { status: "updated" })
+                        //result(null, { status: "updated" })
                     }
                 });
             });
