@@ -41,11 +41,12 @@ module.exports = app => {
     //Orders
     router.post("/order", order.createOrder)
 
-    //Orders
+    //Report User
     router.post("/report", report.createReport)
 
-    //Orders
+    //Booking Personal Tutor
     router.post("/slot", slot.createSlot)
+    router.post("/slot/report", slot.updateSlot)
 
     app.use('/api/v1/', router);
 };

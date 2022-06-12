@@ -12,7 +12,7 @@ const Slots = function(slot) {
 };
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
-  });
+});
 const messaging = admin.messaging()
 Slots.createSlot = (newSlot, result) => {
     sql.query("SELECT * FROM temp_booking WHERE user_id = ? AND tutor_id = ? AND slot = ? AND timefrom = ? AND timeto = ? AND duration = ? AND is_trash != 1 ", [newSlot.user_id, newSlot.tutor_id, newSlot.slot, newSlot.timefrom, newSlot.timeto, newSlot.duration], (err, res) => {
@@ -35,31 +35,31 @@ Slots.createSlot = (newSlot, result) => {
                             return;
                         } else {
                             var payload = {
-                                    token: tutorToken,
-                                    notification: {
-                                        title: 'New Session Requested',
-                                        body: userFullname + ' has request a session on ' + newSlot.slot + " from: " + newSlot.timefrom + " to: " + newSlot.timeto,
-                                    },
-                                    data: {
-                                        bookID: ""+res.insertId,
-                                        userFullName: ""+userFullname,
-                                        slotDate: ""+newSlot.slot,
-                                        timeFrom: ""+newSlot.timefrom,
-                                        timeTo: ""+newSlot.timeto,
-                                      }
-                                };
+                                token: tutorToken,
+                                notification: {
+                                    title: 'New Session Requested',
+                                    body: userFullname + ' has request a session on ' + newSlot.slot + " from: " + newSlot.timefrom + " to: " + newSlot.timeto,
+                                },
+                                data: {
+                                    bookID: "" + res.insertId,
+                                    userFullName: "" + userFullname,
+                                    slotDate: "" + newSlot.slot,
+                                    timeFrom: "" + newSlot.timefrom,
+                                    timeTo: "" + newSlot.timeto,
+                                }
+                            };
                             messaging.send(payload)
-                            .then((result) => {
-                                console.log(result)
-                            })
+                                .then((result) => {
+                                    console.log(result)
+                                })
                             console.log("users: ", res);
                             result(null, { id: res.insertId, ...newSlot });
                         }
-                        
+
                     });
                 });
             });
-            
+
         } else {
             result(null, { results: "duplicate" });
         }
@@ -68,4 +68,14 @@ Slots.createSlot = (newSlot, result) => {
 
 
 };
+Slots.updateSlot = (accpeted, id, result) => {
+    sql.query("UPDATE temp_booking SET is_accpeted = ? WHERE id = ?", [accpeted, id], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, { status: "updated" })
+    })
+}
 module.exports = Slots;
