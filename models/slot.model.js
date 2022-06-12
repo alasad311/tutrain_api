@@ -39,7 +39,7 @@ Slots.createSlot = (newSlot, result) => {
                                 notification: {
                                     title: 'New Session Requested',
                                     body: userFullname + ' has request a session on ' + newSlot.slot + " from: " + newSlot.timefrom + " to: " + newSlot.timeto,
-                                    clickAction: "abc abc bac"
+                                    channelId: "tutrain-default"
                                 },
                                 data: {
                                     type: "NEWSESSION",
