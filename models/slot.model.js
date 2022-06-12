@@ -106,7 +106,7 @@ Slots.updateSlot = (accpeted, id, result) => {
                             data: {
                                 type: "SESSIONRESPONSE",
                                 accpeted: status,
-                                tutorDetails: ""+JSON.stringify(res[0]),
+                                tutorDetails: JSON.stringify(res),
                                 bookID: "" + data[0]['id'],
                                 userFullName: "" + userFullname,
                                 slotDate: "" + data[0]['slot'],
