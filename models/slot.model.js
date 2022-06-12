@@ -69,13 +69,13 @@ Slots.createSlot = (newSlot, result) => {
 
 };
 Slots.updateSlot = (accpeted, id, result) => {
-    sql.query("UPDATE temp_booking SET is_accpeted = ? WHERE id = ?", [accpeted, id], (err, res) => {
+    sql.query("UPDATE temp_booking SET is_accpeted = ? WHERE temp_booking.id = ?", [accpeted, id], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
             return;
         }
-        result(null, { status: "updated" })
+        result(null, res)
     })
 }
 module.exports = Slots;
