@@ -115,7 +115,7 @@ Slots.updateSlot = (accpeted, id, result) => {
                                 console.log(result)
                             })
                         console.log("users: ", res);
-                        //result(null, { status: "updated" })
+                        result(null, { status: "updated" })
                     }
                 });
             });
