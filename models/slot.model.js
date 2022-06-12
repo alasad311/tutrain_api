@@ -76,6 +76,8 @@ Slots.updateSlot = (accpeted, id, result) => {
             return;
         }
         let data;
+        let tutorToken;
+        let userFullname;
         sql.query("SELECT * FROM temp_booking where temp_booking.id = ?", id, (err, res) => {
             data = res;
             sql.query("SELECT pushtoken FROM users WHERE user_id = ?", data[0]['user_id'], (err, res) => {
