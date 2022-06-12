@@ -85,7 +85,7 @@ Slots.updateSlot = (accpeted, id, result) => {
                 tutorToken = res[0]['pushtoken'];
                 sql.query("SELECT fullname FROM users WHERE tutor_id = ?", data[0]['tutor_id'], (err, res) => {
                     userFullname = res[0]['fullname'];
-                    result(null, { data, t: tutorToken, res })
+                    result(null, { data, res })
                     if (err) {
                         console.log("error: ", err);
                         result(null, err);
