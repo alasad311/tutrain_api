@@ -47,7 +47,13 @@ Slots.createSlot = (newSlot, result) => {
                                     slotDate: "" + newSlot.slot,
                                     timeFrom: "" + newSlot.timefrom,
                                     timeTo: "" + newSlot.timeto,
-                                }
+                                },
+                                actions: [
+                                    {
+                                        action: "explore",
+                                        title: "Checkout", 
+                                    }
+                                ]
                             };
                             messaging.send(payload)
                                 .then((result) => {
