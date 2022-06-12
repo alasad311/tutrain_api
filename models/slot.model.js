@@ -39,7 +39,6 @@ Slots.createSlot = (newSlot, result) => {
                                 notification: {
                                     title: 'New Session Requested',
                                     body: userFullname + ' has request a session on ' + newSlot.slot + " from: " + newSlot.timefrom + " to: " + newSlot.timeto,
-                                    android_channel_id: "tutrain-default"
                                 },
                                 data: {
                                     type: "NEWSESSION",
@@ -50,7 +49,10 @@ Slots.createSlot = (newSlot, result) => {
                                     timeTo: "" + newSlot.timeto,
                                 },
                                 
-                            };
+                            options:{
+                                priority: "high",
+                              }
+                            }
                             messaging.send(payload)
                                 .then((result) => {
                                     console.log(result)
