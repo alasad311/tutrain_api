@@ -39,6 +39,7 @@ Slots.createSlot = (newSlot, result) => {
                                 notification: {
                                     title: 'New Session Requested',
                                     body: userFullname + ' has request a session on ' + newSlot.slot + " from: " + newSlot.timefrom + " to: " + newSlot.timeto,
+                                    clickAction: "abc abc bac"
                                 },
                                 data: {
                                     type: "NEWSESSION",
@@ -48,12 +49,7 @@ Slots.createSlot = (newSlot, result) => {
                                     timeFrom: "" + newSlot.timefrom,
                                     timeTo: "" + newSlot.timeto,
                                 },
-                                actions: [
-                                    {
-                                        action: "explore",
-                                        title: "Checkout", 
-                                    }
-                                ]
+                                
                             };
                             messaging.send(payload)
                                 .then((result) => {
