@@ -6,6 +6,8 @@ const Orders = function(order) {
     this.paid_amount = order.paid_amount;
     this.order_number = order.order_number;
     this.user_id = order.user_id;
+    this.is_online = order.is_online;
+    this.book_id = order.book_id;
 };
 Orders.createOrder = (newOrder, result) => {
     sql.query("INSERT INTO orders SET ?", newOrder, (err, res) => {

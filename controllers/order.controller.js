@@ -17,7 +17,9 @@ exports.createOrder = (req, res) => {
         course_id: req.body.course_id,
         tutor_id: req.body.tutor_id,
         paid_amount: req.body.paid_amount,
-        user_id: req.body.user_id
+        user_id: req.body.user_id,
+        is_online: req.body.is_online,
+        book_id: req.body.book_id
     });
 
     Orders.createOrder(Order, (err, data) => {
