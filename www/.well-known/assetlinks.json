@@ -1,5 +1,5 @@
 [{
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target" : { "namespace": "android_app", "package_name": "com.tutrain",
-                 "sha256_cert_fingerprints": ["CB:23:89:1D:46:C5:4B:5D:BB:1E:4C:D2:16:97:49:65:BC:8C:1A:F1:07:D3:35:04:59:68:6F:71:09:AA:FE:31"] }
+                 "sha256_cert_fingerprints": ["A1:5D:2A:1B:C6:CC:AA:E0:69:23:6D:28:D0:D4:FE:5F:1C:A6:89:4B:05:4B:55:BB:61:69:28:E9:47:3C:C0:80"] }
   }]
