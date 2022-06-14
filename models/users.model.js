@@ -144,12 +144,12 @@ User.create = (newUser,refCode,ip, result) => {
         sendEmail('test@oman-dev.com', newUser.email, "Confirm your account on Tutrain", html)
         result(null, { id: res.insertId, ...newUser });
         const newUserID = res.insertId;
-        sql.query("SELECT * FROM referral WHERE ref_code = ? AND user_ip = ? ",[refCode,ip], (err, res) => {
+        sql.query("SELECT * FROM referral WHERE user_ip = ? ",[ip], (err, res) => {
             if(res.length)
             {
-                sql.query("UPDATE referral SET user_id = ? WHERE ref_code = ? AND user_ip = ? ",[newUserID,refCode,ip])
+                sql.query("UPDATE referral SET user_id = ? user_ip = ? WHERE ref_code = ? AND user_ip = ? ",[newUserID,newUserID,res[0].ref_code,ip])
             }else{
-                sql.query("INSER INTO referral(user_id,ref_code,user_ip) VALUES(?,?,?)",[newUserID,refCode,ip])
+                sql.query("INSER INTO referral(user_id,ref_code,user_ip) VALUES(?,?,?)",[newUserID,refCode,newUserID])
             }
         });
     });
