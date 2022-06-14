@@ -98,9 +98,9 @@ exports.confirmAccount = (req, res) => {
             res.sendFile(path.join(__dirname, '../www', 'error.html'));
         } else {
             if (data.results === "confirmed") {
-                res.sendFile(path.join(__dirname, '../www', 'confirmed.html'));
+                res.redirect("/openlogin");
             } else if (data.results === "exist") {
-                res.sendFile(path.join(__dirname, '../www', 'exist.html'));
+                res.redirect("/openlogin");
             } else if (data === false) {
                 res.sendFile(path.join(__dirname, '../www', 'code.html'));
             }
