@@ -153,7 +153,7 @@ User.create = (newUser,refCode,ip, result) => {
             }
         });
         sendEmail('test@oman-dev.com', newUser.email, "Confirm your account on Tutrain", html)
-        //result(null, { id: res.insertId, ...newUser });
+        result(null, { id: res.insertId, ...newUser });
     });
 }
 User.authenticateUser = (email, password, result) => {
