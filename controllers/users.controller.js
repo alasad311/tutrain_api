@@ -174,7 +174,6 @@ exports.addReferral =  (req, res) =>{
     ua = useragent.parse(source);
     if(ua.isMobile)
     {
-        res.status(200).send(JSON.stringify(ua))
         Users.addReferral(refCode,ip,(err,data) => {
            if(data == true)
            {
