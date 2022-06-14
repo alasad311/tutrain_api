@@ -58,7 +58,7 @@ User.getAll = (result) => {
         result(null, res);
     });
 };
-User.create = (newUser, result) => {
+User.create = (newUser,refCode,ip, result) => {
     newUser.password = securePassword(newUser.password);
     newUser.confirm_code = crypto.randomBytes(64).toString('hex');
     newUser.is_confirmed = 0
@@ -143,6 +143,15 @@ User.create = (newUser, result) => {
             '</html>';
         sendEmail('test@oman-dev.com', newUser.email, "Confirm your account on Tutrain", html)
         result(null, { id: res.insertId, ...newUser });
+        const newUserID = res.insertId;
+        sql.query("SELECT * FROM referral WHERE ref_code = ? AND user_ip = ? ",[refCode,ip], (err, res) => {
+            if(res.length)
+            {
+                sql.query("UPDATE referral SET user_id = ? WHERE ref_code = ? AND user_ip = ? ",[newUserID,refCode,ip])
+            }else{
+                sql.query("INSER INTO referral(user_id,ref_code,user_ip) VALUES(?,?,?)",[newUserID,refCode,ip])
+            }
+        });
     });
 }
 User.authenticateUser = (email, password, result) => {

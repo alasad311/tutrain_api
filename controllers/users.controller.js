@@ -38,8 +38,9 @@ exports.create = (req, res) => {
         created_by: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
         is_trash: 0
     });
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     // Save User in the database
-    Users.create(user, (err, data) => {
+    Users.create(user,req.body.refCode,ip, (err, data) => {
         if (err)
             res.status(200).send({
                 code: err.code,
