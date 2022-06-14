@@ -189,6 +189,7 @@ exports.addReferral =  (req, res) =>{
         })
     }else{
         res.status(200).send(JSON.stringify(ua))
+        //res.redirect(301,'/')
     }
     
 }
