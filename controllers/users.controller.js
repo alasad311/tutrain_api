@@ -169,7 +169,7 @@ exports.getUserByID = (req, res) => {
 }
 exports.addReferral =  (req, res) =>{
     const refCode = req.query.ref;
-    const ip = req.ip;
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;;
     var source = req.headers['user-agent']
     ua = useragent.parse(source);
     if(ua.isMobile)
