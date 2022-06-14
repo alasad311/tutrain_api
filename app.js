@@ -17,5 +17,5 @@ app.use(bodyParser.json());
 app.use(express.static("www"));
 require("./routes.js")(app);
 app.get("/users/accpet/:code", users.confirmAccount)
-app.get("/referral/",users.addReferral)
+app.get("/referral",users.addReferral)
 app.listen(port, '0.0.0.0');
