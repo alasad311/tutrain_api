@@ -147,7 +147,7 @@ User.create = (newUser,refCode,ip, result) => {
         sql.query("SELECT * FROM referral WHERE user_ip = ? ",[ip], (err, res) => {
             if(res.length)
             {
-                sql.query("UPDATE referral SET user_id = ? user_ip = ? WHERE ref_code = ? AND user_ip = ? ",[newUserID,newUserID,res[0].ref_code,ip])
+                sql.query("UPDATE referral SET user_id = ? user_ip = ? WHERE ref_code = ? AND user_ip = ? ",[newUserID,newUserID,res.ref_code,ip])
             }else{
                 sql.query("INSER INTO referral(user_id,ref_code,user_ip) VALUES(?,?,?)",[newUserID,refCode,newUserID])
             }
