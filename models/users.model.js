@@ -149,7 +149,7 @@ User.create = (newUser,refCode,ip, result) => {
             {
                 sql.query("UPDATE referral SET user_id = ?,user_ip = ? WHERE ref_code = ? AND user_ip = ? ",[newUserID,newUserID,ress[0].ref_code,ip])
             }else{
-                sql.query("INSER INTO referral(user_id,ref_code,user_ip) VALUES(?,?,?)",[newUserID,refCode,newUserID])
+                sql.query("INSERT INTO referral(user_id,ref_code,user_ip) VALUES(?,?,?)",[newUserID,refCode,newUserID])
             }
         });
         sendEmail('test@oman-dev.com', newUser.email, "Confirm your account on Tutrain", html)
