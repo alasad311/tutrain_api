@@ -47,6 +47,5 @@ module.exports = app => {
     //Booking Personal Tutor
     router.post("/slot", slot.createSlot)
     router.post("/slot/update", slot.updateSlot)
-
     app.use('/api/v1/', router);
 };

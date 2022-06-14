@@ -1,5 +1,6 @@
 const Users = require("../models/users.model.js");
 var path = require('path');
+var useragent = require('express-useragent');
 // Create and Save a new User
 
 exports.create = (req, res) => {
@@ -165,4 +166,28 @@ exports.getUserByID = (req, res) => {
             response: data
         });
     });
+}
+exports.addReferral =  (req, res) =>{
+    const refCode = req.query.ref;
+    const ip = req.connection.remoteAddress;
+    const isMobile = useragent.isMobile;
+  
+    if(isMobile)
+    {
+        Users.addReferral(refCode,ip,(err,data) => {
+           if(data == true)
+           {
+            if(useragent.isAndroid)
+            {
+                res.redirect(301,'https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en&gl=US')
+            }else{
+                res.redirect(301,'https://apps.apple.com/us/app/facebook/id284882215')
+            }
+           }
+            
+        })
+    }else{
+        res.redirect(301,'./')
+    }
+    
 }

@@ -330,7 +330,11 @@ User.confirmCode = (code, result) => {
 
     });
 }
-
+User.addReferral = (refCode,ip,result) => {
+    sql.query("INSERT INTO referral(ref_code,user_ip) VALUES(?,?)", [refCode,ip], (err, res) => {
+        result(null, true);
+    });
+}
 function securePassword(password) {
     const passwordHash = bcrypt.hashSync(password, 10);
     return passwordHash;
