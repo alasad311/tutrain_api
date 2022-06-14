@@ -170,14 +170,14 @@ exports.getUserByID = (req, res) => {
 exports.addReferral =  (req, res) =>{
     const refCode = req.query.ref;
     const ip = req.connection.remoteAddress;
-    const isMobile = useragent.isMobile;
-  
-    if(isMobile)
+    var source = req.headers['user-agent']
+    ua = useragent.parse(source);
+    if(ua.isMobile)
     {
         Users.addReferral(refCode,ip,(err,data) => {
            if(data == true)
            {
-            if(useragent.isAndroid)
+            if(ua.isAndroid)
             {
                 res.redirect(301,'https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en&gl=US')
             }else{
