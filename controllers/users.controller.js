@@ -187,7 +187,7 @@ exports.addReferral =  (req, res) =>{
             
         })
     }else{
-        res.redirect(301,'./')
+        res.redirect(301,'/')
     }
     
 }
