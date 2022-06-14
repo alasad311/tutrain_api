@@ -172,25 +172,23 @@ exports.addReferral =  (req, res) =>{
     const ip = req.connection.remoteAddress;
     var source = req.headers['user-agent']
     ua = useragent.parse(source);
-    res.status(200).send(JSON.stringify(ua))
-    // if(ua.isMobile)
-    // {
-    //     res.status(200).send(JSON.stringify(ua))
-    //     Users.addReferral(refCode,ip,(err,data) => {
-    //        if(data == true)
-    //        {
-    //         if(ua.isAndroid)
-    //         {
-    //             res.redirect(301,'https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en&gl=US')
-    //         }else{
-    //             res.redirect(301,'https://apps.apple.com/us/app/facebook/id284882215')
-    //         }
-    //        }
+    if(ua.isMobile)
+    {
+        res.status(200).send(JSON.stringify(ua))
+        Users.addReferral(refCode,ip,(err,data) => {
+           if(data == true)
+           {
+            if(ua.isAndroid)
+            {
+                res.redirect(301,'https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en&gl=US')
+            }else{
+                res.redirect(301,'https://apps.apple.com/us/app/facebook/id284882215')
+            }
+           }
             
-    //     })
-    // }else{
-    //     res.status(200).send(JSON.stringify(ua))
-    //     //res.redirect(301,'/')
-    // }
+        })
+    }else{
+        res.redirect('/')
+    }
     
 }
