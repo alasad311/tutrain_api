@@ -20,6 +20,7 @@ module.exports = app => {
     router.get("/user/:id", users.getUserByID);
     router.post("/user/token", users.updateToken);
     router.get("/users/:refCode/invites", users.getInvites);
+    router.get("/users/:id/orders/:page", users.getAllOrders);
 
     //Ads
     router.get("/ads", ads.allAds);

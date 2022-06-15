@@ -361,7 +361,16 @@ User.getInvites = (refCode, result) => {
         result(null, res);
     });
 }
-
+User.getAllOrders = (id,page, result) => {
+    sql.query("SELECT * FROM orders LEFT JOIN courses ON courses.id = orders.course_id LEFT JOIN schedule ON schedule.tbooking_id = orders.book_id LEFT JOIN users ON users.user_id = schedule.tutor_id WHERE orders.user_id = ? ORDER BY orders.date DESC LIMIT ?,5", [id,page], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, res);
+    });
+}
 function securePassword(password) {
     const passwordHash = bcrypt.hashSync(password, 10);
     return passwordHash;
