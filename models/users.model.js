@@ -380,7 +380,7 @@ User.getAllRequests = (id,page, result) => {
         offset = page * 10;
     sql.query("SELECT * FROM users WHERE users.user_id = ?", [id], (err, res) => {
 
-        if(res[0].type == "students")
+        if(res[0].type == "student")
         {
             sql.query("SELECT * FROM temp_booking LEFT JOIN users ON users.user_id = temp_booking.tutor_id WHERE temp_booking.is_accpeted = 1 AND temp_booking.user_id = ? ORDER BY temp_booking.datecreated DESC LIMIT ?,10",[id,offset], (err,ress) =>{
                 if (err) {
