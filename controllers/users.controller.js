@@ -40,7 +40,7 @@ exports.create = (req, res) => {
     });
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     // Save User in the database
-    Users.create(user,req.body.refCode,ip, (err, data) => {
+    Users.create(user, req.body.refCode, ip, (err, data) => {
         if (err)
             res.status(200).send({
                 code: err.code,
@@ -117,7 +117,7 @@ exports.updateToken = (req, res) => {
         });
         return;
     }
-    Users.updateToken(req.body.user_id,req.body.pushtoken, (err, data) => {
+    Users.updateToken(req.body.user_id, req.body.pushtoken, (err, data) => {
         if (err)
             res.status(200).send({
                 code: err.code,
@@ -168,23 +168,43 @@ exports.getUserByID = (req, res) => {
         });
     });
 }
-exports.addReferral =  (req, res) =>{
+exports.addReferral = (req, res) => {
     const refCode = req.query.ref;
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     var source = req.headers['user-agent'];
     ua = useragent.parse(source);
-    if(ua.isMobile)
-    {
-        Users.addReferral(refCode,ip,(err,data) => {
-            if(ua.isAndroid)
-            {
+    if (ua.isMobile) {
+        Users.addReferral(refCode, ip, (err, data) => {
+            if (ua.isAndroid) {
                 res.redirect('https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en&gl=US')
-            }else{
+            } else {
                 res.redirect('https://apps.apple.com/us/app/facebook/id284882215')
             }
         })
-    }else{
+    } else {
         res.redirect('/')
     }
-    
+
+}
+exports.getInvites = (req, res) => {
+    const refCode = req.params.refCode;
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if (token != "09f26e402586e2faa8da4c98a35f1b20d6b033c6097befa8be3486a829587fe2f90a832bd3ff9d42710a4da095a2ce285b009f0c3730cd9b8e1af3eb84df6611") {
+        res.status(400).send({
+            message: "UnAuthorized Access!"
+        });
+        return;
+    }
+    Users.getInvites(refCode, (err, data) => {
+        if (err)
+            res.status(200).send({
+                code: err.code,
+            });
+        else res.send({
+            response: data
+        });
+    });
+
 }

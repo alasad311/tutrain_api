@@ -58,7 +58,7 @@ User.getAll = (result) => {
         result(null, res);
     });
 };
-User.create = (newUser,refCode,ip, result) => {
+User.create = (newUser, refCode, ip, result) => {
     newUser.password = securePassword(newUser.password);
     newUser.confirm_code = crypto.randomBytes(64).toString('hex');
     newUser.is_confirmed = 0
@@ -141,15 +141,14 @@ User.create = (newUser,refCode,ip, result) => {
             '</style>' +
             '</body>' +
             '</html>';
-       
+
         const newUserID = res.insertId;
-        sql.query("SELECT * FROM referral WHERE user_ip = ? ",ip, (err, ress) => {
-            
-            if(ress.length)
-            {
-                sql.query("UPDATE referral SET user_id = ?,user_ip = ? WHERE ref_code = ? AND user_ip = ? ",[newUserID,newUserID,ress[0].ref_code,ip])
-            }else{
-                sql.query("INSERT INTO referral(user_id,ref_code,user_ip) VALUES(?,?,?)",[newUserID,refCode,newUserID])
+        sql.query("SELECT * FROM referral WHERE user_ip = ? ", ip, (err, ress) => {
+
+            if (ress.length) {
+                sql.query("UPDATE referral SET user_id = ?,user_ip = ? WHERE ref_code = ? AND user_ip = ? ", [newUserID, newUserID, ress[0].ref_code, ip])
+            } else {
+                sql.query("INSERT INTO referral(user_id,ref_code,user_ip) VALUES(?,?,?)", [newUserID, refCode, newUserID])
             }
         });
         sendEmail('test@oman-dev.com', newUser.email, "Confirm your account on Tutrain", html)
@@ -294,8 +293,8 @@ User.getUserDetailsByID = (id, result) => {
         result(null, res);
     });
 }
-User.updateToken = (id,token, result) => {
-    sql.query("UPDATE users SET pushtoken = ? WHERE user_id = ?", [token,id], (err, res) => {
+User.updateToken = (id, token, result) => {
+    sql.query("UPDATE users SET pushtoken = ? WHERE user_id = ?", [token, id], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
@@ -341,17 +340,28 @@ User.confirmCode = (code, result) => {
 
     });
 }
-User.addReferral = (refCode,ip,result) => {
-    sql.query("INSERT INTO referral(ref_code,user_ip) VALUES(?,?)", [refCode,ip], (err, res) => {
+User.addReferral = (refCode, ip, result) => {
+    sql.query("INSERT INTO referral(ref_code,user_ip) VALUES(?,?)", [refCode, ip], (err, res) => {
         if (err) {
             result(null, err);
             return;
-        }else{
+        } else {
             result(null, true);
         }
-        
+
     });
 }
+User.getInvites = (refCode, result) => {
+    sql.query("SELECT COUNT(*) AS TotalInvites FROM referral WHERE ref_code = ? AND made_order = 1", refCode, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, res);
+    });
+}
+
 function securePassword(password) {
     const passwordHash = bcrypt.hashSync(password, 10);
     return passwordHash;
