@@ -241,7 +241,7 @@ exports.getAllRequests = (req, res) => {
         });
         return;
     }
-    Users.getAllOrders(userID,page, (err, data) => {
+    Users.getAllRequests(userID,page, (err, data) => {
         if (err)
             res.status(200).send({
                 code: err.code,

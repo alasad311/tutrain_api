@@ -21,6 +21,7 @@ module.exports = app => {
     router.post("/user/token", users.updateToken);
     router.get("/users/:refCode/invites", users.getInvites);
     router.get("/users/:id/orders/:page", users.getAllOrders);
+    router.get("/users/:id/requests/:page", users.getAllRequests);
 
     //Ads
     router.get("/ads", ads.allAds);
