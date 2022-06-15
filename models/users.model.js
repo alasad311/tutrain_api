@@ -374,6 +374,38 @@ User.getAllOrders = (id,page, result) => {
         result(null, res);
     });
 }
+User.getAllRequests = (id,page, result) => {
+    let offset = 0;
+    if (page != 0)
+        offset = page * 10;
+    sql.query("SELECT * FROM users WHERE users.user_id = ?", [id], (err, res) => {
+
+        if(res[0].type == "students")
+        {
+            sql.query("SELECT * FROM temp_booking LEFT JOIN users ON users.user_id = temp_booking.tutor_id WHERE temp_booking.is_accpeted = 1 AND temp_booking.user_id = ? ORDER BY temp_booking.datecreated DESC LIMIT ?,10",[id,page], (err,ress) =>{
+                if (err) {
+                    console.log("error: ", err);
+                    result(null, err);
+                    return;
+                }
+                result(null, ress);
+            })
+        }else{
+
+            sql.query("SELECT * FROM temp_booking LEFT JOIN users ON users.user_id = temp_booking.user_id WHERE temp_booking.is_accpeted = 0 AND temp_booking.tutor_id = ? ORDER BY temp_booking.datecreated DESC LIMIT ?,10",[id,page], (err,ress) =>{
+                if (err) {
+                    console.log("error: ", err);
+                    result(null, err);
+                    return;
+                }
+                result(null, ress);
+            })
+
+        }
+
+    });
+}
+
 function securePassword(password) {
     const passwordHash = bcrypt.hashSync(password, 10);
     return passwordHash;
