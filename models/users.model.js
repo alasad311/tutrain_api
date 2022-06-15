@@ -364,8 +364,8 @@ User.getInvites = (refCode, result) => {
 User.getAllOrders = (id,page, result) => {
     let offset = 0;
     if (page != 0)
-        offset = page * 10;
-    sql.query("SELECT * FROM orders LEFT JOIN courses ON courses.id = orders.course_id LEFT JOIN schedule ON schedule.tbooking_id = orders.book_id LEFT JOIN users ON users.user_id = schedule.tutor_id WHERE orders.user_id = ? ORDER BY orders.date DESC LIMIT ?,10", [id,offset], (err, res) => {
+        offset = page * 6;
+    sql.query("SELECT * FROM orders LEFT JOIN courses ON courses.id = orders.course_id LEFT JOIN schedule ON schedule.tbooking_id = orders.book_id LEFT JOIN users ON users.user_id = schedule.tutor_id WHERE orders.user_id = ? ORDER BY orders.date DESC LIMIT ?,6", [id,offset], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
