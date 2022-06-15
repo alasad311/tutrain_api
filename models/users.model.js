@@ -392,7 +392,7 @@ User.getAllRequests = (id,page, result) => {
             })
         }else{
 
-            sql.query("SELECT * FROM temp_booking  LEFT JOIN users ON users.user_id = temp_booking.tutor_id  LEFT JOIN schedule ON schedule.tbooking_id = temp_booking.id WHERE temp_booking.is_accpeted = 0 AND temp_booking.tutor_id = ? AND schedule.id IS NULL AND temp_booking.slot >= CURDATE() ORDER BY temp_booking.datecreated  DESC LIMIT ?,10",[id,offset], (err,ress) =>{
+            sql.query("SELECT * FROM temp_booking  LEFT JOIN users ON users.user_id = temp_booking.user_id  LEFT JOIN schedule ON schedule.tbooking_id = temp_booking.id WHERE temp_booking.is_accpeted = 0 AND temp_booking.tutor_id = ? AND schedule.id IS NULL AND temp_booking.slot >= CURDATE() ORDER BY temp_booking.datecreated  DESC LIMIT ?,10",[id,offset], (err,ress) =>{
                 if (err) {
                     console.log("error: ", err);
                     result(null, err);
