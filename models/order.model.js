@@ -13,38 +13,74 @@ const Orders = function(order) {
 Orders.createOrder = (newOrder, result) => {
     let tutorToken;
     let userFullname;
-    sql.query("SELECT * FROM users WHERE user_id = ?", newOrder.tutor_id, (err, res) => {
-        tutorToken = res[0]['pushtoken'];
-        sql.query("SELECT fullname FROM users WHERE user_id = ?", newOrder.user_id, (err, res) => {
-            userFullname = res[0]['fullname'];
-            sql.query("INSERT INTO orders SET ?", newOrder, (err, res) => {
-                if (err) {
-                    console.log("error: ", err);
-                    result(null, err);
-                    return;
-                } else {
-                    var payload = {
-                        token: tutorToken,
-                        notification: {
-                            title: 'New Order',
-                            body: userFullname + 'has place an order check it out now',
-                        },
-                        data: {
-                            type: "NEWORDER",
-                            orderID: "" + res.insertId,
+    if (newOrder.course_id) {
+        sql.query("SELECT users.pushtoken  FROM users  LEFT JOIN courses ON courses.user_id = users.user_id  WHERE courses.id = ?", newOrder.course_id, (err, res) => {
+            tutorToken = res[0]['pushtoken'];
+            sql.query("SELECT fullname FROM users WHERE user_id = ?", newOrder.user_id, (err, res) => {
+                userFullname = res[0]['fullname'];
+                sql.query("INSERT INTO orders SET ?", newOrder, (err, res) => {
+                    if (err) {
+                        console.log("error: ", err);
+                        result(null, err);
+                        return;
+                    } else {
+                        var payload = {
+                            token: tutorToken,
+                            notification: {
+                                title: 'New Order',
+                                body: userFullname + 'has place an order check it out',
+                            },
+                            data: {
+                                type: "NEWORDER",
+                                orderID: "" + res.insertId,
+                            }
                         }
+                        messaging.send(payload)
+                            .then((result) => {
+                                console.log(result)
+                            })
+                        console.log("users: ", res);
+                        result(null, { id: res.insertId, ...newOrder });
                     }
-                    messaging.send(payload)
-                        .then((result) => {
-                            console.log(result)
-                        })
-                    console.log("users: ", res);
-                    result(null, { id: res.insertId, ...newOrder });
-                }
 
+                });
             });
         });
-    });
+    } else {
+        sql.query("SELECT * FROM users WHERE user_id = ?", newOrder.tutor_id, (err, res) => {
+            tutorToken = res[0]['pushtoken'];
+            sql.query("SELECT fullname FROM users WHERE user_id = ?", newOrder.user_id, (err, res) => {
+                userFullname = res[0]['fullname'];
+                sql.query("INSERT INTO orders SET ?", newOrder, (err, res) => {
+                    if (err) {
+                        console.log("error: ", err);
+                        result(null, err);
+                        return;
+                    } else {
+                        var payload = {
+                            token: tutorToken,
+                            notification: {
+                                title: 'New Order',
+                                body: userFullname + 'has place an order check it out',
+                            },
+                            data: {
+                                type: "NEWORDER",
+                                orderID: "" + res.insertId,
+                            }
+                        }
+                        messaging.send(payload)
+                            .then((result) => {
+                                console.log(result)
+                            })
+                        console.log("users: ", res);
+                        result(null, { id: res.insertId, ...newOrder });
+                    }
+
+                });
+            });
+        });
+    }
+
 
 
 };
