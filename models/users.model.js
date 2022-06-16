@@ -381,7 +381,7 @@ User.getAllRequests = (id, page, result) => {
     sql.query("SELECT * FROM users WHERE users.user_id = ?", [id], (err, res) => {
 
         if (res[0].type == "student") {
-            sql.query("SELECT *,temp_booking.slot AS slotDate,temp_booking.id AS bookid FROM temp_booking  LEFT JOIN users ON users.user_id = temp_booking.tutor_id  LEFT JOIN schedule ON schedule.tbooking_id = temp_booking.id LEFT JOIN orders ON orders.book_id = temp_booking.id WHERE temp_booking.is_accpeted = 1  AND temp_booking.user_id =? AND schedule.id IS NOT NULL AND temp_booking.fullslot >= (NOW()+ INTERVAL 2 HOUR) AND orders.id IS NULL ORDER BY temp_booking.datecreated  DESC LIMIT ?,10", [id, offset], (err, ress) => {
+            sql.query("SELECT *,temp_booking.slot AS slotDate,temp_booking.id AS bookid,temp_booking.tutor_id AS tutorID  FROM temp_booking  LEFT JOIN users ON users.user_id = temp_booking.tutor_id  LEFT JOIN schedule ON schedule.tbooking_id = temp_booking.id LEFT JOIN orders ON orders.book_id = temp_booking.id WHERE temp_booking.is_accpeted = 1  AND temp_booking.user_id =? AND schedule.id IS NOT NULL AND temp_booking.fullslot >= (NOW()+ INTERVAL 2 HOUR) AND orders.id IS NULL ORDER BY temp_booking.datecreated  DESC LIMIT ?,10", [id, offset], (err, ress) => {
                 if (err) {
                     console.log("error: ", err);
                     result(null, err);
