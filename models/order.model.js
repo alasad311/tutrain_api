@@ -1,9 +1,5 @@
 const sql = require("./db.js");
 const admin = require('firebase-admin');
-const serviceAccount = require("../tutrain-e774e-firebase-adminsdk-gxssy-62965fb283.json");
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
 const messaging = admin.messaging()
 const Orders = function(order) {
     this.course_id = order.course_id;
