@@ -20,6 +20,7 @@ exports.createSlot = (req, res) => {
         timefrom: req.body.timefrom,
         timeto: req.body.timeto,
         duration: req.body.duration,
+        fullslot: req.body.fullslot
     });
 
     Slot.createSlot(Slots, (err, data) => {

@@ -9,6 +9,7 @@ const Slots = function(slot) {
     this.timefrom = slot.timefrom;
     this.timeto = slot.timeto;
     this.duration = slot.duration;
+    this.fullslot = slot.fullslot
 };
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
