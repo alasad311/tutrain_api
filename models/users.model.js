@@ -361,11 +361,11 @@ User.getInvites = (refCode, result) => {
         result(null, res);
     });
 }
-User.getAllOrders = (id,page, result) => {
+User.getAllOrders = (id, page, result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 6;
-    sql.query("SELECT * FROM orders LEFT JOIN courses ON courses.id = orders.course_id LEFT JOIN schedule ON schedule.tbooking_id = orders.book_id LEFT JOIN users ON users.user_id = schedule.tutor_id WHERE orders.user_id = ? ORDER BY orders.date DESC LIMIT ?,6", [id,offset], (err, res) => {
+    sql.query("SELECT * FROM orders LEFT JOIN courses ON courses.id = orders.course_id LEFT JOIN schedule ON schedule.tbooking_id = orders.book_id LEFT JOIN users ON users.user_id = schedule.tutor_id WHERE orders.user_id = ? ORDER BY orders.date DESC LIMIT ?,6", [id, offset], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
@@ -374,15 +374,14 @@ User.getAllOrders = (id,page, result) => {
         result(null, res);
     });
 }
-User.getAllRequests = (id,page, result) => {
+User.getAllRequests = (id, page, result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
     sql.query("SELECT * FROM users WHERE users.user_id = ?", [id], (err, res) => {
 
-        if(res[0].type == "student")
-        {
-            sql.query("SELECT *,temp_booking.slot AS slotDate FROM temp_booking  LEFT JOIN users ON users.user_id = temp_booking.tutor_id  LEFT JOIN schedule ON schedule.tbooking_id = temp_booking.id WHERE temp_booking.is_accpeted = 1  AND temp_booking.user_id =? AND schedule.id IS NULL AND temp_booking.slot >= CURDATE() ORDER BY temp_booking.datecreated  DESC LIMIT ?,10",[id,offset], (err,ress) =>{
+        if (res[0].type == "student") {
+            sql.query("SELECT *,temp_booking.slot AS slotDate,temp_booking.id AS bookid FROM temp_booking  LEFT JOIN users ON users.user_id = temp_booking.tutor_id  LEFT JOIN schedule ON schedule.tbooking_id = temp_booking.id WHERE temp_booking.is_accpeted = 1  AND temp_booking.user_id =? AND schedule.id IS NULL AND temp_booking.slot >= CURDATE() ORDER BY temp_booking.datecreated  DESC LIMIT ?,10", [id, offset], (err, ress) => {
                 if (err) {
                     console.log("error: ", err);
                     result(null, err);
@@ -390,9 +389,9 @@ User.getAllRequests = (id,page, result) => {
                 }
                 result(null, ress);
             })
-        }else{
+        } else {
 
-            sql.query("SELECT *,temp_booking.slot AS slotDate FROM temp_booking  LEFT JOIN users ON users.user_id = temp_booking.user_id  LEFT JOIN schedule ON schedule.tbooking_id = temp_booking.id WHERE temp_booking.is_accpeted = 0 AND temp_booking.tutor_id = ? AND schedule.id IS NULL AND temp_booking.slot >= CURDATE() ORDER BY temp_booking.datecreated  DESC LIMIT ?,10",[id,offset], (err,ress) =>{
+            sql.query("SELECT *,temp_booking.slot AS slotDate,temp_booking.id AS bookid FROM temp_booking  LEFT JOIN users ON users.user_id = temp_booking.user_id  LEFT JOIN schedule ON schedule.tbooking_id = temp_booking.id WHERE temp_booking.is_accpeted = 0 AND temp_booking.tutor_id = ? AND schedule.id IS NULL AND temp_booking.slot >= CURDATE() ORDER BY temp_booking.datecreated  DESC LIMIT ?,10", [id, offset], (err, ress) => {
                 if (err) {
                     console.log("error: ", err);
                     result(null, err);
