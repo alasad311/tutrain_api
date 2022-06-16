@@ -4,6 +4,7 @@ const serviceAccount = require("../tutrain-e774e-firebase-adminsdk-gxssy-62965fb
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
+const messaging = admin.messaging()
 const Orders = function(order) {
     this.course_id = order.course_id;
     this.tutor_id = order.tutor_id;
