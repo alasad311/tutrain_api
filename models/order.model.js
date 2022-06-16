@@ -14,6 +14,8 @@ const Orders = function(order) {
     this.book_id = order.book_id;
 };
 Orders.createOrder = (newOrder, result) => {
+    let tutorToken;
+    let userFullname;
     sql.query("SELECT * FROM users WHERE user_id = ?", newOrder.tutor_id, (err, res) => {
         tutorToken = res[0]['pushtoken'];
         sql.query("SELECT fullname FROM users WHERE user_id = ?", newOrder.user_id, (err, res) => {
