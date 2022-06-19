@@ -351,6 +351,16 @@ User.addReferral = (refCode, ip, result) => {
 
     });
 }
+User.getUserWallet = (id, result) => {
+    sql.query("SELECT SUM(CASE WHEN A.Wallet IS NULL THEN 0 ELSE A.Wallet END) AS TotalW FROM(SELECT SUM(orders.paid_amount) AS Wallet  FROM orders LEFT JOIN courses ON courses.id = orders.course_id WHERE orders.is_paidtotutor = 0 AND orders.tutor_id = ? UNION ALL SELECT SUM(orders.paid_amount) AS Wallet  FROM orders LEFT JOIN courses ON courses.id = orders.course_id WHERE orders.is_paidtotutor = 0 AND courses.user_id = ?)A", [id, id], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, res);
+    });
+}
 User.getInvites = (refCode, result) => {
     sql.query("SELECT COUNT(*) AS TotalInvites FROM referral WHERE ref_code = ? AND made_order = 1", refCode, (err, res) => {
         if (err) {

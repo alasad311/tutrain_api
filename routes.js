@@ -23,7 +23,7 @@ module.exports = app => {
     router.get("/users/:id/orders/:page", users.getAllOrders);
     router.get("/users/:id/requests/:page/pending", users.getAllRequests);
     router.get("/users/:id/requests/:page/confirmed", users.getAllConfirmed);
-
+    router.get("/users/:id/wallet", users.getUserWallet);
     //Ads
     router.get("/ads", ads.allAds);
 
