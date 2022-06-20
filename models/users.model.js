@@ -346,7 +346,7 @@ User.addReferral = (refCode, ip, result) => {
             result(null, err);
             return;
         } else {
-            result(null, {id: res.insertId});
+            result(null, true);
         }
 
     });
@@ -357,7 +357,7 @@ User.createPayoutRequest = (userID, amount, result) => {
             result(null, err);
             return;
         } else {
-            result(null, true);
+            result(null, {id: res.insertId});
         }
 
     });
