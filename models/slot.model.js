@@ -137,7 +137,7 @@ Slots.cancelSlot = (id, result) => {
         sql.query("SELECT pushtoken FROM users WHERE user_id = ?", data[0]['user_id'], (err, res) => {
             tutorToken = res[0]['pushtoken'];
             sql.query("SELECT * FROM users WHERE user_id = ?", data[0]['tutor_id'], (err, res) => {
-                sql.query("DELETE FROM temp_booking WHERE temp_booking.id = ?", id, (err, res) => {
+                sql.query("DELETE FROM temp_booking WHERE temp_booking.id = ?", id, (err, ress) => {
                     userFullname = res[0]['fullname'];
                     if (err) {
                         console.log("error: ", err);
