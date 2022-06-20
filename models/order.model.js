@@ -79,8 +79,9 @@ Orders.createOrder = (newOrder, result) => {
                                     console.log(result)
                                 })
                             console.log("users: ", res);
+                            result(null, { id: res.insertId,test:"test", ...newOrder });
                         }
-                        result(null, { id: res.insertId, ...newOrder });
+                       
                     });
 
                     
