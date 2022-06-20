@@ -54,30 +54,37 @@ Orders.createOrder = (newOrder, result) => {
             sql.query("SELECT fullname FROM users WHERE user_id = ?", newOrder.user_id, (err, res) => {
                 userFullname = res[0]['fullname'];
                 sql.query("INSERT INTO orders SET ?", newOrder, (err, res) => {
-                    if (err) {
-                        console.log("error: ", err);
-                        result(null, err);
-                        return;
-                    } else {
-                        var payload = {
-                            token: tutorToken,
-                            notification: {
-                                title: 'New Order',
-                                body: userFullname + 'has place an order check it out',
-                            },
-                            data: {
-                                type: "NEWORDER",
-                                orderID: "" + res.insertId,
-                                userName: "" + userFullname
+                    sql.query("SELECT * FROM temp_booking WHERE id = ", newOrder.book_id, (err, res) => {
+                        if (err) {
+                            console.log("error: ", err);
+                            result(null, err);
+                            return;
+                        } else {
+                            var payload = {
+                                token: tutorToken,
+                                notification: {
+                                    title: 'New Order',
+                                    body: userFullname + 'has place a session check it out for more details',
+                                },
+                                data: {
+                                    type: "NEWORDER",
+                                    schedule: "" + true,
+                                    userName: "" + userFullname,
+                                    slotDate: "" + res.fullsot
+
+                                }
                             }
+                            messaging.send(payload)
+                                .then((result) => {
+                                    console.log(result)
+                                })
+                            console.log("users: ", res);
                         }
-                        messaging.send(payload)
-                            .then((result) => {
-                                console.log(result)
-                            })
-                        console.log("users: ", res);
-                        result(null, { id: res.insertId, ...newOrder });
-                    }
+
+                    });
+
+                    result(null, { id: res.insertId, ...newOrder });
+
 
                 });
             });
