@@ -19,7 +19,8 @@ exports.createOrder = (req, res) => {
         paid_amount: req.body.paid_amount,
         user_id: req.body.user_id,
         is_online: req.body.is_online,
-        book_id: req.body.book_id
+        book_id: req.body.book_id,
+        service_fees: req.body.service_fees
     });
 
     Orders.createOrder(Order, (err, data) => {
