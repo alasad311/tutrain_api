@@ -64,7 +64,7 @@ Orders.createOrder = (newOrder, result) => {
                                 token: tutorToken,
                                 notification: {
                                     title: 'New Order',
-                                    body: userFullname + 'has place a session check it out for more details',
+                                    body: userFullname + ' has place a session check it out for more details',
                                 },
                                 data: {
                                     type: "NEWORDER",
