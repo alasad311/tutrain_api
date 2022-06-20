@@ -125,4 +125,43 @@ Slots.updateSlot = (accpeted, id, result) => {
 
     })
 }
+Slots.cancelSlot = (id, result) => {
+    
+         
+    let data;
+    let tutorToken;
+    let userFullname;
+    let tutor;
+    sql.query("SELECT * FROM temp_booking where temp_booking.id = ?", id, (err, res) => {
+        data = res;
+        sql.query("SELECT pushtoken FROM users WHERE user_id = ?", data[0]['user_id'], (err, res) => {
+            tutorToken = res[0]['pushtoken'];
+            sql.query("SELECT * FROM users WHERE user_id = ?", data[0]['tutor_id'], (err, res) => {
+                sql.query("DELETE FROM temp_booking WHERE temp_booking.id = ?", id, (err, res) => {
+                    userFullname = res[0]['fullname'];
+                    if (err) {
+                        console.log("error: ", err);
+                        result(null, err);
+                        return;
+                    } else {
+                        var payload = {
+                            token: tutorToken,
+                            notification: {
+                                title: 'Session Cancelled',
+                                body: userFullname + ' has cancelled the session on ' + data[0]['slot'] ,
+                            }
+                        };
+                        messaging.send(payload)
+                            .then((result) => {
+                                console.log(result)
+                            })
+                        console.log("users: ", res);
+                        result(null, { status: "updated" })
+                    }
+                });
+            });
+        });
+
+    })
+}
 module.exports = Slots;
