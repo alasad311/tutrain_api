@@ -50,7 +50,7 @@ module.exports = app => {
     router.post("/report", report.createReport)
 
     //Setting
-    router.post("/report", setting.getServiceFees)
+    router.get("/app/setting", setting.getServiceFees)
 
     //Booking Personal Tutor
     router.post("/slot", slot.createSlot)
