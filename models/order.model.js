@@ -17,6 +17,7 @@ Orders.createOrder = (newOrder, result) => {
     if (newOrder.course_id) {
         sql.query("SELECT users.pushtoken  FROM users  LEFT JOIN courses ON courses.user_id = users.user_id  WHERE courses.id = ?", newOrder.course_id, (err, res) => {
             tutorToken = res[0]['pushtoken'];
+            courseName = res[0]['name']
             sql.query("SELECT fullname FROM users WHERE user_id = ?", newOrder.user_id, (err, res) => {
                 userFullname = res[0]['fullname'];
                 sql.query("INSERT INTO orders SET ?", newOrder, (err, res) => {
@@ -29,7 +30,7 @@ Orders.createOrder = (newOrder, result) => {
                             token: tutorToken,
                             notification: {
                                 title: 'New Order',
-                                body: userFullname + 'has place an order check it out',
+                                body: 'A user has bought your course ' + courseName,
                             },
                             data: {
                                 type: "NEWORDER",
@@ -67,6 +68,7 @@ Orders.createOrder = (newOrder, result) => {
                             data: {
                                 type: "NEWORDER",
                                 orderID: "" + res.insertId,
+                                userName: "" + userFullname
                             }
                         }
                         messaging.send(payload)
