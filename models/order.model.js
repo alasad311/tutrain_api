@@ -69,7 +69,7 @@ Orders.createOrder = (newOrder, result) => {
                                 data: {
                                     type: "NEWORDER",
                                     userName: "" + userFullname,
-                                    slotDate: "" + res[0].fullsot
+                                    slotDate: "" + res[0].fullslot
 
                                 }
                             }
