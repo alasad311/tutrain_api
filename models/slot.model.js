@@ -149,7 +149,7 @@ Slots.cancelSlot = (id, result) => {
                             token: tutorToken,
                             notification: {
                                 title: 'Session Cancelled',
-                                body: userFullname + ' has cancelled the session on ' + data[0]['slot'] ,
+                                body: userFullname + ' has cancelled the session on ' + data[0]['fullslot'] ,
                             },
                             data: {
                                 type: "SESSIONCANCELLED",
