@@ -8,7 +8,7 @@ const Slots = function(slot) {
     this.timefrom = slot.timefrom;
     this.timeto = slot.timeto;
     this.duration = slot.duration;
-    this.fullslot = slot.fullDate
+    this.fullslot = slot.fullslot
 };
 const messaging = admin.messaging()
 Slots.createSlot = (newSlot, result) => {
