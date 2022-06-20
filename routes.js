@@ -25,6 +25,7 @@ module.exports = app => {
     router.get("/users/:id/requests/:page/pending", users.getAllRequests);
     router.get("/users/:id/requests/:page/confirmed", users.getAllConfirmed);
     router.get("/users/:id/wallet", users.getUserWallet);
+    router.post("/payout/request", users.createPayoutRequest);
     //Ads
     router.get("/ads", ads.allAds);
 
