@@ -10,6 +10,7 @@ module.exports = app => {
     const order = require("./controllers/order.controller.js");
     const report = require("./controllers/report.controller.js");
     const slot = require("./controllers/slot.controller.js");
+    const setting = require("./controllers/setting.controller.js");
 
     var router = require("express").Router();
     // Users
@@ -47,6 +48,9 @@ module.exports = app => {
 
     //Report User
     router.post("/report", report.createReport)
+
+    //Setting
+    router.post("/report", setting.getServiceFees)
 
     //Booking Personal Tutor
     router.post("/slot", slot.createSlot)
