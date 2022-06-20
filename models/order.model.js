@@ -80,7 +80,7 @@ Orders.createOrder = (newOrder, result) => {
                                 })
                             console.log("users: ", res);
                         }
-                        result(null, { id: res.insertId, fullSlot: "test", ...newOrder });
+                        result(null, { id: res.insertId, ...newOrder });
                     });
 
                     
