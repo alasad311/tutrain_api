@@ -134,7 +134,7 @@ Slots.cancelSlot = (id, result) => {
     let tutor;
     sql.query("SELECT * FROM temp_booking where temp_booking.id = ?", id, (err, res) => {
         data = res;
-        sql.query("SELECT pushtoken FROM users WHERE user_id = ?", data[0]['user_id'], (err, res) => {
+        sql.query("SELECT pushtoken FROM users WHERE user_id = ?", data[0]['tutor_id'], (err, res) => {
             tutorToken = res[0]['pushtoken'];
             sql.query("SELECT * FROM users WHERE user_id = ?", data[0]['tutor_id'], (err, res) => {
                 userFullname = res[0]['fullname'];
@@ -150,6 +150,9 @@ Slots.cancelSlot = (id, result) => {
                             notification: {
                                 title: 'Session Cancelled',
                                 body: userFullname + ' has cancelled the session on ' + data[0]['slot'] ,
+                            },
+                            data: {
+                                type: "SESSIONCANCELLED",
                             }
                         };
                         messaging.send(payload)
