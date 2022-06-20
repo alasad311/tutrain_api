@@ -54,7 +54,9 @@ Orders.createOrder = (newOrder, result) => {
             sql.query("SELECT fullname FROM users WHERE user_id = ?", newOrder.user_id, (err, res) => {
                 userFullname = res[0]['fullname'];
                 sql.query("INSERT INTO orders SET ?", newOrder, (err, res) => {
+                    let fullSlotDate;
                     sql.query("SELECT * FROM temp_booking WHERE id = ?", newOrder.book_id, (err, res) => {
+                        fullSlotDate = res[0].fullslot;
                         if (err) {
                             console.log("error: ", err);
                             result(null, err);
@@ -82,7 +84,7 @@ Orders.createOrder = (newOrder, result) => {
 
                     });
 
-                    result(null, { id: res.insertId, ...newOrder });
+                    result(null, { id: res.insertId, fullSlot: fullSlotDate,...newOrder });
 
 
                 });
