@@ -73,7 +73,6 @@ Orders.createOrder = (newOrder, result) => {
 
                                 }
                             }
-                            result(null,payload);
                             messaging.send(payload)
                                 .then((result) => {
                                     console.log(result)
@@ -83,7 +82,7 @@ Orders.createOrder = (newOrder, result) => {
 
                     });
 
-                    //result(null, { id: res.insertId, ...newOrder });
+                    result(null, { id: res.insertId, ...newOrder });
 
 
                 });
