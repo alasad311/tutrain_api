@@ -68,12 +68,12 @@ Orders.createOrder = (newOrder, result) => {
                                 },
                                 data: {
                                     type: "NEWORDER",
-                                    schedule: "" + true,
                                     userName: "" + userFullname,
                                     slotDate: "" + res.fullsot
 
                                 }
                             }
+                            result(null,payload);
                             messaging.send(payload)
                                 .then((result) => {
                                     console.log(result)
@@ -83,7 +83,7 @@ Orders.createOrder = (newOrder, result) => {
 
                     });
 
-                    result(null, { id: res.insertId, ...newOrder });
+                    //result(null, { id: res.insertId, ...newOrder });
 
 
                 });
