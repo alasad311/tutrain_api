@@ -156,7 +156,7 @@ User.create = (newUser, refCode, ip, result) => {
     });
 }
 User.authenticateUser = (email, password, result) => {
-    sql.query("SELECT * FROM users where email = ?", email, (err, res) => {
+    sql.query("SELECT * FROM users where email = ? AND is_trash != 1 AND is_active = 1", email, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
