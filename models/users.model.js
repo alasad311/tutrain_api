@@ -357,13 +357,13 @@ User.createPayoutRequest = (userID, amount, result) => {
             result(null, err);
             return;
         } else {
-            result(null, {id: res.insertId});
+            result(null, { id: res.insertId });
         }
 
     });
 }
 User.getUserWallet = (id, result) => {
-    sql.query("SELECT SUM(B.TotalW) AS TotalW FROM(SELECT SUM(CASE WHEN A.Wallet IS NULL THEN 0 ELSE A.Wallet END) AS TotalW FROM(SELECT SUM(orders.paid_amount) AS Wallet,orders.tutor_id AS user_id FROM orders LEFT JOIN courses ON courses.id = orders.course_id WHERE orders.is_paidtotutor = 0 AND orders.tutor_id = ? UNION ALL SELECT SUM(orders.paid_amount) AS Wallet ,courses.user_id FROM orders LEFT JOIN courses ON courses.id = orders.course_id WHERE orders.is_paidtotutor = 0 AND courses.user_id = ?)A UNION ALL SELECT  -1 * SUM(amount) AS TotalW FROM payout WHERE user_id = ?)B", [id, id,id], (err, res) => {
+    sql.query("SELECT SUM(B.TotalW) AS TotalW FROM(SELECT SUM(CASE WHEN A.Wallet IS NULL THEN 0 ELSE A.Wallet END) AS TotalW FROM(SELECT SUM(orders.paid_amount) AS Wallet,orders.tutor_id AS user_id FROM orders LEFT JOIN courses ON courses.id = orders.course_id WHERE orders.is_paidtotutor = 0 AND orders.tutor_id = ? UNION ALL SELECT SUM(orders.paid_amount) AS Wallet ,courses.user_id FROM orders LEFT JOIN courses ON courses.id = orders.course_id WHERE orders.is_paidtotutor = 0 AND courses.user_id = ?)A UNION ALL SELECT  -1 * SUM(amount) AS TotalW FROM payout WHERE user_id =?  AND is_trash != 1)B", [id, id, id], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
