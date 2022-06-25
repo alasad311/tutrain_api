@@ -11,6 +11,7 @@ module.exports = app => {
     const report = require("./controllers/report.controller.js");
     const slot = require("./controllers/slot.controller.js");
     const setting = require("./controllers/setting.controller.js");
+    const session = require("./controllers/session.controller.js");
 
     var router = require("express").Router();
     // Users
@@ -39,6 +40,9 @@ module.exports = app => {
     router.get("/course/sections/:id", course.getCourseSections)
     router.get("/course/paied/:id/:user", course.getPaidStatus)
 
+    //Sessions
+    router.get("/session/:id", session.getSessionById)
+    router.get("/session/paied/:id/:user", session.getPaidStatus)
 
     //Search
     router.get("/search/all/:value/:page", search.searchAll);
