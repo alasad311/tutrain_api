@@ -43,6 +43,7 @@ module.exports = app => {
     //Sessions
     router.get("/session/:id", session.getSessionById)
     router.get("/session/paied/:id/:user", session.getPaidStatus)
+    router.get("/session/counter/:id", session.getNumberOfSeats)
 
     //Search
     router.get("/search/all/:value/:page", search.searchAll);

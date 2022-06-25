@@ -43,4 +43,16 @@ Session.fetchSessionOrderByUser = (id,user,result) => {
         result(null, res);
     });
 };
+Session.getNumberOfSeats = (id,result) => {
+    let query = "SELECT COUNT(order.id) AS totalSeatsTaken FROM order WHERE oredr.session_id = ?";
+    sql.query(query,[id,user], (err, res) => {
+        if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+        }
+        console.log("users: ", res);
+        result(null, res);
+    });
+};
 module.exports = Session;
