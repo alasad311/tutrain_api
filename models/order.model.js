@@ -49,7 +49,7 @@ Orders.createOrder = (newOrder, result) => {
                 });
             });
         });
-    } else {
+    } else if (newOrder.book_id){
         sql.query("SELECT * FROM users WHERE user_id = ?", newOrder.tutor_id, (err, res) => {
             tutorToken = res[0]['pushtoken'];
             sql.query("SELECT fullname FROM users WHERE user_id = ?", newOrder.user_id, (err, res) => {
@@ -89,7 +89,41 @@ Orders.createOrder = (newOrder, result) => {
                 });
             });
         });
-    }
+    }else if (newOrder.session_id) {
+        sql.query("SELECT users.pushtoken  FROM users  LEFT JOIN course_session ON course_session.user_id = users.user_id  WHERE course_session.id = ?", newOrder.session_id, (err, res) => {
+            tutorToken = res[0]['pushtoken'];
+            courseName = res[0]['session_name']
+            sql.query("SELECT fullname FROM users WHERE user_id = ?", newOrder.user_id, (err, res) => {
+                userFullname = res[0]['fullname'];
+                sql.query("INSERT INTO orders SET ?", newOrder, (err, res) => {
+                    if (err) {
+                        console.log("error: ", err);
+                        result(null, err);
+                        return;
+                    } else {
+                        var payload = {
+                            token: tutorToken,
+                            notification: {
+                                title: 'New Order',
+                                body: 'A user has bought a seat for your session ' + courseName,
+                            },
+                            data: {
+                                type: "NEWORDER",
+                                orderID: "" + res.insertId,
+                            }
+                        }
+                        messaging.send(payload)
+                            .then((result) => {
+                                console.log(result)
+                            })
+                        console.log("users: ", res);
+                        result(null, { id: res.insertId, ...newOrder });
+                    }
+
+                });
+            });
+        });
+    } 
 
 
 
