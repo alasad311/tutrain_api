@@ -19,7 +19,7 @@ const Session = function(session) {
 };
 
 Session.fetchSessionById = (id,result) => {
-    let query = "SELECT *  FROM course_session LEFT JOIN users ON users.user_id = course_session.user_id where course_session.is_trash != 1 AND session.id = ?";
+    let query = "SELECT *  FROM course_session LEFT JOIN users ON users.user_id = course_session.user_id where course_session.is_trash != 1 AND course_session.id = ?";
     sql.query(query,id, (err, res) => {
         if (err) {
         console.log("error: ", err);
