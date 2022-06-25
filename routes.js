@@ -62,7 +62,7 @@ module.exports = app => {
     router.get("/app/setting", setting.getServiceFees)
 
     //rating
-    router.post('rating/new',rating.createRating)
+    router.post('/rating/new',rating.createRating)
 
     //Booking Personal Tutor
     router.post("/slot", slot.createSlot)
