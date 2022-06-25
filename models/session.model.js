@@ -18,7 +18,7 @@ const Session = function(session) {
     this.user_id = session.user_id;
 };
 
-session.fetchSessionById = (id,result) => {
+Session.fetchSessionById = (id,result) => {
     let query = "SELECT *  FROM course_session LEFT JOIN users ON users.user_id = course_session.user_id where course_session.is_trash != 1 AND session.id = ?";
     sql.query(query,id, (err, res) => {
         if (err) {
@@ -31,7 +31,7 @@ session.fetchSessionById = (id,result) => {
     });
 };
 
-session.fetchSessionOrderByUser = (id,user,result) => {
+Session.fetchSessionOrderByUser = (id,user,result) => {
     let query = "SELECT *   FROM orders LEFT JOIN users ON users.user_id = orders.user_id  WHERE orders.course_session = ? AND users.email = ?";
     sql.query(query,[id,user], (err, res) => {
         if (err) {
