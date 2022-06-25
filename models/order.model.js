@@ -90,7 +90,7 @@ Orders.createOrder = (newOrder, result) => {
             });
         });
     }else if (newOrder.session_id) {
-        sql.query("SELECT users.pushtoken  FROM users  LEFT JOIN course_session ON course_session.user_id = users.user_id  WHERE course_session.id = ?", newOrder.session_id, (err, res) => {
+        sql.query("SELECT users.pushtoken,session_name  FROM users  LEFT JOIN course_session ON course_session.user_id = users.user_id  WHERE course_session.id = ?", newOrder.session_id, (err, res) => {
             tutorToken = res[0]['pushtoken'];
             courseName = res[0]['session_name']
             sql.query("SELECT fullname FROM users WHERE user_id = ?", newOrder.user_id, (err, res) => {
