@@ -10,6 +10,7 @@ const Orders = function(order) {
     this.is_online = order.is_online;
     this.book_id = order.book_id;
     this.service_fees = order.service_fees;
+    this.session_id = order.session_id;
 };
 Orders.createOrder = (newOrder, result) => {
     let tutorToken;
