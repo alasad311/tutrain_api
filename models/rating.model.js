@@ -7,7 +7,7 @@ const Ratings = function(rating) {
     this.value = order.value;
 };
 Ratings.createOrder = (newRating, result) => {
-    sql.query("INSERT INTO orders SET ?", newRating, (err, res) => {
+    sql.query("INSERT INTO rating SET ?", newRating, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
