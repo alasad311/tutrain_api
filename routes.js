@@ -44,7 +44,8 @@ module.exports = app => {
     router.get("/search/all/:value/:page", search.searchAll);
     router.get("/search/users/:value/:page", search.searchUser);
     router.get("/search/courses/:value/:page", search.searchCourses);
-
+    router.get("/search/sessions/:value/:page", search.searchSessions);
+    
     //Orders
     router.post("/order", order.createOrder)
 
