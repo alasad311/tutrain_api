@@ -382,6 +382,16 @@ User.getInvites = (refCode, result) => {
         result(null, res);
     });
 }
+User.deleteUser = (id, result) => {
+    sql.query("UPDATE users SET is_trash = 1, is_active = 0 WHERE user_id = ?", id, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null,{ results: "success" });
+    });
+}
 User.getAllOrders = (id, page, result) => {
     let offset = 0;
     if (page != 0)
