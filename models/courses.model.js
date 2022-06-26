@@ -28,7 +28,7 @@ Courses.fetchAllNewCourses = (email,result) => {
     });
 };
 Courses.fetchCourseById = (id,result) => {
-    let query = "SELECT *  FROM courses LEFT JOIN users ON users.user_id = courses.user_id where courses.is_confirmed = 1 AND courses.id = ? AND is_trash != 1";
+    let query = "SELECT *  FROM courses LEFT JOIN users ON users.user_id = courses.user_id where courses.is_confirmed = 1 AND courses.id = ?";
     sql.query(query,id, (err, res) => {
         if (err) {
         console.log("error: ", err);
