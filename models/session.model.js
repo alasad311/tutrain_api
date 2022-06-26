@@ -32,7 +32,7 @@ Session.fetchSessionById = (id,result) => {
 };
 
 Session.fetchSessionOrderByUser = (id,user,result) => {
-    let query = "SELECT *   FROM orders LEFT JOIN users ON users.user_id = orders.user_id  WHERE orders.course_session = ? AND users.email = ?";
+    let query = "SELECT *   FROM orders LEFT JOIN users ON users.user_id = orders.user_id  WHERE orders.session_id = ? AND users.email = ?";
     sql.query(query,[id,user], (err, res) => {
         if (err) {
         console.log("error: ", err);
