@@ -389,7 +389,7 @@ User.deleteUser = (id, result) => {
             result(null, err);
             return;
         }
-        result(null,{ results: "success" });
+        result(null, { results: "success" });
     });
 }
 User.getAllOrders = (id, page, result) => {
@@ -463,6 +463,19 @@ User.getAllConfirmed = (id, page, result) => {
 
         }
 
+    });
+}
+User.getAllSession = (id, page, result) => {
+    let offset = 0;
+    if (page != 0)
+        offset = page * 10;
+    sql.query("SELECT *, CASE WHEN course_session.startdate > NOW() = true THEN false ELSE true END AS is_active FROM course_session  WHERE course_session.user_id = ? AND course_session.is_trash != 1 ORDER BY id DESC LIMIT ?,10", [id, offset], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, res);
     });
 }
 

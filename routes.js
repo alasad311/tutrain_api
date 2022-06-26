@@ -28,6 +28,7 @@ module.exports = app => {
     router.get("/users/:id/requests/:page/confirmed", users.getAllConfirmed);
     router.get("/users/:id/wallet", users.getUserWallet);
     router.get("/users/:id/delete", users.deleteUser);
+    router.get("/users/:id/all/sessions/:page", users.getAllSession);
     router.post("/payout/request", users.createPayoutRequest);
     //Ads
     router.get("/ads", ads.allAds);
@@ -51,7 +52,7 @@ module.exports = app => {
     router.get("/search/users/:value/:page", search.searchUser);
     router.get("/search/courses/:value/:page", search.searchCourses);
     router.get("/search/sessions/:value/:page", search.searchSessions);
-    
+
     //Orders
     router.post("/order", order.createOrder)
 
@@ -62,7 +63,7 @@ module.exports = app => {
     router.get("/app/setting", setting.getServiceFees)
 
     //rating
-    router.post('/rating/new',rating.createRating)
+    router.post('/rating/new', rating.createRating)
 
     //Booking Personal Tutor
     router.post("/slot", slot.createSlot)
