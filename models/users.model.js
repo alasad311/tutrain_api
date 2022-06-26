@@ -283,7 +283,7 @@ User.getUserEmail = (email, result) => {
     });
 }
 User.getUserDetailsByID = (id, result) => {
-    sql.query("SELECT * FROM users where is_confirmed = 1 AND user_id = ?", id, (err, res) => {
+    sql.query("SELECT * FROM users where is_confirmed = 1 AND user_id = ? AND is_trash != 1 AND is_active = 1", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
