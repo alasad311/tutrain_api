@@ -16,4 +16,4 @@ Contest.checkContest = (result) => {
         result(null, res);
     });
 };
-module.exports = Setting;
+module.exports = Contest;
