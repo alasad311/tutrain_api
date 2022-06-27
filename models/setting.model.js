@@ -4,8 +4,8 @@ const Setting = function(setting) {
     this.service_fees = setting.service_fees;
     this.is_precentage = setting.is_precentage;
 };
-Setting.getServiceFees = (result) => {
-    let query = "SELECT * FROM app_setting WHERE id = 0;";
+Setting.checkContest = (result) => {
+    let query = "SELECT * FROM contest WHERE contest.startdate <= NOW() AND contest.enddate > NOW() ORDER BY id DESC LIMIT 0,1";
     sql.query(query, (err, res) => {
         if (err) {
             console.log("error: ", err);

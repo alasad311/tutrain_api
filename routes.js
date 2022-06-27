@@ -13,6 +13,7 @@ module.exports = app => {
     const setting = require("./controllers/setting.controller.js");
     const session = require("./controllers/session.controller.js");
     const rating = require("./controllers/rating.controller.js");
+    const contest = require("./controllers/contest.controller.js");
 
     var router = require("express").Router();
     // Users
@@ -64,6 +65,9 @@ module.exports = app => {
 
     //rating
     router.post('/rating/new', rating.createRating)
+
+    //contest
+    router.post('/contest', contest.checkContest)
 
     //Booking Personal Tutor
     router.post("/slot", slot.createSlot)
