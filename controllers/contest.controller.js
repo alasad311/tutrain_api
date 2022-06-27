@@ -12,7 +12,7 @@ exports.checkContest = (req, res) => {
         });
         return;
     }
-    Setting.checkContest((err, data) => {
+    Contest.checkContest((err, data) => {
         if (err)
             res.status(200).send({
                 code: err.code,

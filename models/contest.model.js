@@ -4,7 +4,7 @@ const Contest = function(contest) {
     this.startdate = contest.startdate;
     this.enddate = contest.enddate;
 };
-Contest.getServiceFees = (result) => {
+Contest.checkContest = (result) => {
     let query = "SELECT * FROM app_setting WHERE id = 0;";
     sql.query(query, (err, res) => {
         if (err) {
