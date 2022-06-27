@@ -67,7 +67,7 @@ module.exports = app => {
     router.post('/rating/new', rating.createRating)
 
     //contest
-    router.post('/contest', contest.checkContest)
+    router.get('/contest', contest.checkContest)
 
     //Booking Personal Tutor
     router.post("/slot", slot.createSlot)
