@@ -16,4 +16,16 @@ Contest.checkContest = (result) => {
         result(null, res);
     });
 };
+Contest.getSubs = (result) => {
+    let query = "SELECT * FROM subscriptions WHERE subscriptions.is_trash != 1";
+    sql.query(query, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        console.log("users: ", res);
+        result(null, res);
+    });
+};
 module.exports = Contest;
