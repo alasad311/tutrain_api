@@ -21,7 +21,8 @@ exports.createOrder = (req, res) => {
         is_online: req.body.is_online,
         book_id: req.body.book_id,
         service_fees: req.body.service_fees,
-        session_id: req.body.session_id
+        session_id: req.body.session_id,
+        subscription_id: req.body.subscription_id,
     });
 
     Orders.createOrder(Order, (err, data) => {

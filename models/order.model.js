@@ -11,6 +11,7 @@ const Orders = function(order) {
     this.book_id = order.book_id;
     this.service_fees = order.service_fees;
     this.session_id = order.session_id;
+    this.subscription_id = order.subscription_id;
 };
 Orders.createOrder = (newOrder, result) => {
     let tutorToken;
@@ -123,7 +124,12 @@ Orders.createOrder = (newOrder, result) => {
                 });
             });
         });
-    } 
+    }else if(newOrder.subscription_id)
+    {
+        sql.query("INSERT INTO orders SET ?", newOrder, (err, res) => {
+            result(null, { id: res.insertId, ...newOrder });
+        });
+    }
 
 
 
