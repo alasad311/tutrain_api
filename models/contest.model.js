@@ -55,7 +55,7 @@ Contest.checkAnswererd  = (id,userid,result) => {
             return;
         }
 
-        if(res.length){result(null, { isAnswererd: true, value: res.answer_id});}else{result(null, { isAnswererd: false});}
+        if(res.length){result(null, { isAnswererd: true, value: res[0].answer_id});}else{result(null, { isAnswererd: false});}
 
         
     });
