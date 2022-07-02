@@ -60,4 +60,17 @@ Contest.checkAnswererd  = (id,userid,result) => {
         
     });
 };
+Contest.submitAnswer = (answerID,contestID,userID,result) => {
+    let query = "INSERT INTO user_answer(user_id,contest_id,answer_id) VALUES(?,?,?)";
+    sql.query(query, [userID,contestID,answerID], (err, res) => {
+        if (err) {
+            result(null, err);
+            return;
+        }
+
+        if(res.length){result(null, true);}else{result(null, false);}
+
+        
+    });
+};
 module.exports = Contest;
