@@ -55,7 +55,7 @@ Contest.checkAnswererd  = (id,userid,result) => {
             return;
         }
 
-        if(res.length){result(null, true);}else{result(null, false);}
+        if(res.length){result(null, { isAnswererd: true, value: res[0].answer_id});}else{result(null, { isAnswererd: true});}
 
         
     });
@@ -68,7 +68,7 @@ Contest.submitAnswer = (answerID,contestID,userID,result) => {
             return;
         }
 
-        result(null, { id: res.insertId, ...res });
+        result(null, { id: res.insertId });
 
         
     });
