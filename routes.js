@@ -68,6 +68,7 @@ module.exports = app => {
 
     //contest
     router.get('/contest', contest.checkContest)
+    router.get('/contest/:idc', contest.getQuestions)
     router.get('/contest/subscriptions', contest.getSubs)
 
     //Booking Personal Tutor
