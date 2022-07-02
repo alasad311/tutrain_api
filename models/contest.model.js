@@ -30,14 +30,14 @@ Contest.getSubs = (result) => {
     });
 };
 Contest.getQuestions  = (id,userid,result) => {
-    let query = "SELECT * FROM contest LEFT JOIN contest_question ON contest_question.contest_id = contest.id LEFT JOIN question_choice ON question_choice.question_id = contest_question.id LEFT JOIN user_answer ON user_answer.contest_id = contest.id WHERE contest.id = ? OR user_answer.user_id = ?  ";
+    let query = "SELECT * FROM contest LEFT JOIN contest_question ON contest_question.contest_id = contest.id LEFT JOIN question_choice ON question_choice.question_id = contest_question.id WHERE contest.id = ?  ";
     var options = { sql: query, nestTables: true };
     var nestingOptions = [
         { tableName : 'contest', pkey: 'id'},
-        { tableName : 'contest_question', pkey: 'id', fkeys:[{table:'contest',col:'section_id'}]},
-        { tableName : 'user_answer', pkey: 'id', fkeys:[{table:'contest_question',col:'question_id',table:'contest',col:'contest_id',}]},
+        { tableName : 'contest_question', pkey: 'id', fkeys:[{table:'contest',col:'contest_id'}]},
+        { tableName : 'question_choice', pkey: 'id', fkeys:[{table:'contest_question',col:'question_id'}]},
     ];
-    sql.query(options,id,userid, (err, response) => {
+    sql.query(options,[id,userid], (err, response) => {
         if (err) {
         console.log("error: ", err);
         result(null, err);
