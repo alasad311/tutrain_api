@@ -68,7 +68,7 @@ Contest.submitAnswer = (answerID,contestID,userID,result) => {
             return;
         }
 
-        if(res.length){result(null, true);}else{result(null, false);}
+        result(null, { id: res.insertId, ...res });
 
         
     });
