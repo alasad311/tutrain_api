@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.post("/api/v1/users/upload", upload.single('tutrainPro'), (req, res, next) => {
 
-    res.status(201).send({ req });
+    res.status(201).send(req.file.filename);
 
     // Create a new image model and fill the properties
     // let newImage = new Image();
