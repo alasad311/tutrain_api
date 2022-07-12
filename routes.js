@@ -1,5 +1,6 @@
 const { route } = require("express/lib/application");
-
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 module.exports = app => {
 
     const users = require("./controllers/users.controller.js");
@@ -30,6 +31,7 @@ module.exports = app => {
     router.get("/users/:id/wallet", users.getUserWallet);
     router.get("/users/:id/delete", users.deleteUser);
     router.get("/users/:id/all/sessions/:page", users.getAllSession);
+    router.post("/users/:id/upload", upload.single('tutrainPro'));
     router.post("/payout/request", users.createPayoutRequest);
     //Ads
     router.get("/ads", ads.allAds);

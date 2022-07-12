@@ -6,6 +6,7 @@ const port = 3000;
 const cors = require('cors');
 const users = require("./controllers/users.controller.js");
 const admin = require('firebase-admin');
+
 const serviceAccount = require("./tutrain-e774e-firebase-adminsdk-gxssy-62965fb283.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)

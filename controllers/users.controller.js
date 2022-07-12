@@ -354,5 +354,4 @@ exports.deleteUser = (req, res) => {
             response: data
         });
     });
-
 }
