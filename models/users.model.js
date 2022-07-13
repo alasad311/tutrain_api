@@ -495,8 +495,11 @@ User.uploadProfile = (profile,id,body, result) => {
     if(body.phone){
         details += ",phone = '"+body.phone+"'";
     }
-
-    sql.query("UPDATE users SET picture = ? "+details+" WHERE user_id = ? ", ["https://tapp.scd.edu.om/uploads/"+profile,id], (err, res) => {
+    if(profile)
+    {
+        details += ",picture = 'https://tapp.scd.edu.om/uploads/"+profile+"'";
+    }
+    sql.query("UPDATE users SET updated_by = ? "+details+" WHERE user_id = ? ", [id,id], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
