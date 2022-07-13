@@ -502,13 +502,13 @@ User.uploadProfile = (profile,id,body, result) => {
             result(null, err);
             return;
         }
-        sql.query("SELECT * FROM users where is_confirmed = 1 AND user_id = ? AND is_trash != 1 AND is_active = 1", id, (err, res) => {
+        sql.query("SELECT * FROM users where is_confirmed = 1 AND user_id = ? AND is_trash != 1 AND is_active = 1", id, (err, ress) => {
             if (err) {
                 console.log("error: ", err);
                 result(null, err);
                 return;
             }
-            result(null, { results: "success" },res);
+            result(null, { results: "success" },ress);
         });
     });
 }
