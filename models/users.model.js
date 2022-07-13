@@ -479,6 +479,18 @@ User.getAllSession = (id, page, result) => {
     });
 }
 
+User.uploadProfile = (profile,id, result) => {
+    console.log("IM HERE!");
+    sql.query("UPDATE users SET picture = ? WHERE user_id = ?", ["https://tapp.scd.edu.om/uploads/"+profile,id], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, { results: "success" });
+    });
+}
+
 function securePassword(password) {
     const passwordHash = bcrypt.hashSync(password, 10);
     return passwordHash;

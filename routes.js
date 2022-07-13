@@ -1,5 +1,4 @@
 const { route } = require("express/lib/application");
-
 module.exports = app => {
 
     const users = require("./controllers/users.controller.js");
@@ -30,6 +29,8 @@ module.exports = app => {
     router.get("/users/:id/wallet", users.getUserWallet);
     router.get("/users/:id/delete", users.deleteUser);
     router.get("/users/:id/all/sessions/:page", users.getAllSession);
+
+    router.post("/users/upload", users.uploadProfile);
 
     router.post("/payout/request", users.createPayoutRequest);
     //Ads
