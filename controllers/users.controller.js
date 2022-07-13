@@ -4,7 +4,7 @@ var useragent = require('express-useragent');
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, './uploads/');
+        callback(null, './www/uploads/');
     },
     fileFilter: function (req, file, cb) {
         const extension = path.extname(file.originalname).toLowerCase();
