@@ -479,9 +479,24 @@ User.getAllSession = (id, page, result) => {
     });
 }
 
-User.uploadProfile = (profile,id, result) => {
-    console.log("IM HERE!");
-    sql.query("UPDATE users SET picture = ? WHERE user_id = ?", ["https://tapp.scd.edu.om/uploads/"+profile,id], (err, res) => {
+User.uploadProfile = (profile,id,body, result) => {
+
+    let details;
+    if(body.fullname)
+    {
+        details = ",fullname = '"+body.fullname+"'";
+    }
+    if(body.dob){
+        details += ",dateofbirth = '"+body.dob+"'";
+    }
+    if(body.country){
+        details += ",country = '"+body.country+"'";
+    }
+    if(body.phone){
+        details += ",phone = '"+body.phone+"'";
+    }
+
+    sql.query("UPDATE users SET picture = ? "+details+" WHERE user_id = ? ", ["https://tapp.scd.edu.om/uploads/"+profile,id], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);

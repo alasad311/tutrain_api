@@ -403,8 +403,7 @@ exports.uploadProfile  = (req, res, next) => {
                 code: err.code,
             });
         }
-       
-        Users.uploadProfile(req.file.filename,userID, (err, data) => {
+        Users.uploadProfile(req.file.filename,userID,req.body, (err, data) => {
             if (err)
                 res.status(200).send({
                     code: err.code,
