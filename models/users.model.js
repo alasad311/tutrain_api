@@ -516,6 +516,41 @@ User.uploadProfile = (profile,id,body, result) => {
     });
 }
 
+User.changePassword = (id, body, result) => {
+    sql.query("SELECT * FROM users where user_id = ? AND is_trash != 1 AND is_active = 1", id, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        if (res.length) {
+
+               if(validatePassword(body.oldpassword, res[0].password))
+               {
+                const newPassword =  securePassword(body.newpassword);
+
+                sql.query("UPDATE users SET password = ? where user_id = ? AND is_trash != 1 AND is_active = 1", [newPassword, id], (err, res) => {
+                    if (err) {
+                        result(null, false);
+                        return;
+                    }else{
+                        result(null,true);
+                    }
+                });
+
+
+               }else{
+                result(null, false)
+               }
+            
+
+        } else {
+            result(null, false)
+        }
+
+    });
+}
+
 function securePassword(password) {
     const passwordHash = bcrypt.hashSync(password, 10);
     return passwordHash;

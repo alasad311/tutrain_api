@@ -28,6 +28,7 @@ module.exports = app => {
     router.get("/users/:id/requests/:page/confirmed", users.getAllConfirmed);
     router.get("/users/:id/wallet", users.getUserWallet);
     router.get("/users/:id/delete", users.deleteUser);
+    router.get("/users/:id/password", users.changePassword);
     router.get("/users/:id/all/sessions/:page", users.getAllSession);
 
     router.post("/users/upload", users.uploadProfile);
