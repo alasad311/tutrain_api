@@ -508,7 +508,7 @@ User.uploadProfile = (profile,id,body, result) => {
                 result(null, err);
                 return;
             }
-            result(null, { results: "success" , data:ress});
+            result(null, { results: "success" , user:ress});
         });
     });
 }
