@@ -510,7 +510,6 @@ User.uploadProfile = (profile,id,body, result) => {
             }
             result(null, { results: "success" },res);
         });
-       
     });
 }
 
