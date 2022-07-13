@@ -481,7 +481,7 @@ User.getAllSession = (id, page, result) => {
 
 User.uploadProfile = (profile,id,body, result) => {
 
-    let details;
+    let details = "";
     if(body.fullname)
     {
         details = ",fullname = '"+body.fullname+"'";
