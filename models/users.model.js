@@ -464,6 +464,26 @@ User.getAllConfirmed = (id, page, result) => {
 
     });
 }
+User.getAllCourseOrders = (email, result) => {
+    let offset = 0;
+    if (page != 0)
+        offset = page * 10;
+    sql.query(`SELECT courses.id,courses.img,courses.name,courses.rating,instructor.fullname
+    FROM users 
+    LEFT JOIN orders ON orders.user_id = users.user_id
+    LEFT JOIN courses ON courses.id = orders.course_id
+    LEFT JOIN users AS instructor ON instructor.user_id = courses.user_id
+    WHERE users.email = ?
+    AND orders.course_id IS NOT NULL`, email, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, res);
+    });
+}
+
 User.getAllSession = (id, page, result) => {
     let offset = 0;
     if (page != 0)

@@ -30,6 +30,8 @@ module.exports = app => {
     router.get("/users/:id/delete", users.deleteUser);
     router.post("/users/:id/password", users.changePassword);
     router.get("/users/:id/all/sessions/:page", users.getAllSession);
+    router.get("/users/:email/orders/courses", users.getAllCourseOrders);
+
 
     router.post("/users/upload", users.uploadProfile);
 
