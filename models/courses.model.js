@@ -74,7 +74,7 @@ Courses.fetchAllNewCoursesPaged = (id,page,result) => {
     if (page != 0)
         offset = page * 10;
     let query = "SELECT *  FROM courses LEFT JOIN users ON users.user_id = courses.user_id where courses.is_confirmed = 1 AND users.user_id != ? AND courses.is_trash != 1 ORDER BY id DESC LIMIT ?,10";
-    sql.query(query,[id,page], (err, res) => {
+    sql.query(query,[id,offset], (err, res) => {
         if (err) {
         console.log("error: ", err);
         result(null, err);
