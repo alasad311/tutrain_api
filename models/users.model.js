@@ -465,9 +465,6 @@ User.getAllConfirmed = (id, page, result) => {
     });
 }
 User.getAllCourseOrders = (email, result) => {
-    let offset = 0;
-    if (page != 0)
-        offset = page * 10;
     sql.query(`SELECT courses.id,courses.img,courses.name,courses.rating,instructor.fullname
     FROM users 
     LEFT JOIN orders ON orders.user_id = users.user_id
