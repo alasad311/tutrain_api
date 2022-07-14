@@ -512,11 +512,11 @@ User.uploadProfile = (profile,id,body, result) => {
     }
     if(body.about)
     {
-        details += ",about = '"+sanitizer.sanitize(body.about)+"'";
+        details += ",about = '"+sanitizer.sanitize(body.about).replace("'", '')+"'";
     }
     if(body.tags)
     {
-        details += ",tags = '"+sanitizer.sanitize(body.tags)+"'";
+        details += ",tags = '"+sanitizer.sanitize(body.tags).replace("'", '')+"'";
     }
     if(body.isemail)
     {
