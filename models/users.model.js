@@ -2,6 +2,7 @@ const sql = require("./db.js");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const nodemailer = require('nodemailer');
+var sanitizer = require('sanitizer');
 // constructor
 const User = function(user) {
     this.fullname = user.fullname;
@@ -511,11 +512,11 @@ User.uploadProfile = (profile,id,body, result) => {
     }
     if(body.about)
     {
-        details += ",about = '"+body.about+"'";
+        details += ",about = '"+sanitizer.sanitize(body.about)+"'";
     }
     if(body.tags)
     {
-        details += ",tags = '"+body.tags+"'";
+        details += ",tags = '"+sanitizer.sanitize(body.tags)+"'";
     }
     if(body.isemail)
     {
