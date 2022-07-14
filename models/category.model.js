@@ -24,7 +24,7 @@ Category.getAllCourses = (userID,id,page,result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
-    let query = "SELECT * FROM courses LEFT JOIN users ON users.user_id = courses.user_id where cat_id = ? AND courses.user_id != ?  AND courses.user_id IS NOT NULL LIMIT ?,10 ";
+    let query = "SELECT * FROM courses LEFT JOIN users ON users.user_id = courses.user_id where cat_id = ? AND courses.user_id != ?  AND users.user_id IS NOT NULL LIMIT ?,10 ";
     sql.query(query,[id,userID,offset], (err, res) => {
         if (err) {
         console.log("error: ", err);
