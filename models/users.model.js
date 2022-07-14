@@ -497,6 +497,44 @@ User.uploadProfile = (profile,id,body, result) => {
     {
         details += ",picture = 'https://tapp.scd.edu.om/uploads/"+profile+"'";
     }
+    if(body.deg)
+    {
+        details += ",degree = '"+body.deg+"'";
+    }
+    if(body.spec)
+    {
+        details += ",specialization = '"+body.spec+"'";
+    }
+    if(body.address)
+    {
+        details += ",address = '"+body.address+"'";
+    }
+    if(body.about)
+    {
+        details += ",about = '"+body.about+"'";
+    }
+    if(body.tags)
+    {
+        details += ",tags = '"+body.tags+"'";
+    }
+    if(body.isemail)
+    {
+        details += ",is_email = '"+body.isemail+"'";
+    }
+    if(body.isphone)
+    {
+        details += ",is_phone = '"+body.isphone+"'";
+    }
+    if(body.iswhatsapp)
+    {
+        details += ",is_whatapp = '"+body.iswhatsapp+"'";
+    }
+    if(body.hourcost)
+    {
+        details += ",hour_price = '"+body.hourcost+"'";
+    }
+
+    
     sql.query("UPDATE users SET updated_by = ? "+details+" WHERE user_id = ? ", [id,id], (err, res) => {
         if (err) {
             console.log("error: ", err);
