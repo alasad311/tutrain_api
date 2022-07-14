@@ -20,4 +20,19 @@ Category.fetchAll = (result) => {
         result(null, res);
     });
 };
+Category.getAllCourses = (userID,id,page,result) => {
+    let offset = 0;
+    if (page != 0)
+        offset = page * 10;
+    let query = "SELECT * FROM courses where cat_id = ? AND user_id != ? LIMIT ?,10 ";
+    sql.query(query,[id,userID,offset], (err, res) => {
+        if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+        }
+        console.log("users: ", res);
+        result(null, res);
+    });
+};
 module.exports = Category;

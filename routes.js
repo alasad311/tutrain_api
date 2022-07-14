@@ -41,12 +41,14 @@ module.exports = app => {
 
     //Categories
     router.get("/category", category.allCategory)
+    router.get("/category/:id/:page", category.getAllCourses)
 
     //Courses
     router.get("/courses/new/:email", course.allNewCourses)
     router.get("/courses/allnew/:page",course.fetchAllNewCoursesPaged)
     router.get("/course/:id", course.getCourseById)
     router.get("/course/sections/:id", course.getCourseSections)
+    router.get("/course/paied/:id/:user", course.getPaidStatus)
     router.get("/course/paied/:id/:user", course.getPaidStatus)
 
     //Sessions
