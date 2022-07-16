@@ -44,7 +44,6 @@ Courses.fetchCourseSections = (id,result) => {
     var options = { sql: query, nestTables: true };
     var nestingOptions = [
         { tableName : 'course_section', pkey: 'id'},
-        { tableName : 'course_section', pkey: 'id'},
         { tableName : 'course_content', pkey: 'id', fkeys:[{table:'course_section',col:'section_id'}]},
     ];
     sql.query(options,id, (err, response) => {
