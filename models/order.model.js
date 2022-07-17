@@ -17,7 +17,7 @@ Orders.createOrder = (newOrder, result) => {
     let tutorToken;
     let userFullname;
     if (newOrder.course_id) {
-        sql.query("SELECT users.pushtoken  FROM users  LEFT JOIN courses ON courses.user_id = users.user_id  WHERE courses.id = ?", newOrder.course_id, (err, res) => {
+        sql.query("SELECT users.pushtoken,courses.name  FROM users  LEFT JOIN courses ON courses.user_id = users.user_id  WHERE courses.id = ?", newOrder.course_id, (err, res) => {
             tutorToken = res[0]['pushtoken'];
             courseName = res[0]['name']
             sql.query("SELECT fullname FROM users WHERE user_id = ?", newOrder.user_id, (err, res) => {
