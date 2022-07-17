@@ -35,7 +35,7 @@ Orders.createOrder = (newOrder, result) => {
                                 body: 'A user has bought your course ' + courseName,
                             },
                             data: {
-                                type: "NEWORDER",
+                                type: "COURSEBOUGHT",
                                 orderID: "" + res.insertId,
                             }
                         }
