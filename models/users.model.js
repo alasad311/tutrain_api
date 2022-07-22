@@ -471,7 +471,9 @@ User.getAllCourseOrders = (email, result) => {
     LEFT JOIN courses ON courses.id = orders.course_id
     LEFT JOIN users AS instructor ON instructor.user_id = courses.user_id
     WHERE users.email = ?
-    AND orders.course_id IS NOT NULL`, email, (err, res) => {
+    AND orders.course_id IS NOT NULL
+    LIMIT 0,5
+    ORDER BY orders.id DESC`, email, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
