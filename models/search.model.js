@@ -52,7 +52,7 @@ Search.User = (value, page,id, result) => {
         });
     
 };
-Search.Courses = (value, page, result) => {
+Search.Courses = (value, page,id, result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
