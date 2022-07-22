@@ -16,7 +16,7 @@ const Courses = function(courses) {
     this.is_trash = courses.is_trash;
 };
 Courses.fetchAllNewCourses = (email,result) => {
-    let query = "SELECT courses.*, users.user_id,users.fullname  FROM courses LEFT JOIN users ON users.user_id = courses.user_id where courses.is_confirmed = 1 AND users.email != ? AND courses.is_trash != 1 AND users.is_trash != 1  ORDER BY id DESC LIMIT 0,5";
+    let query = "SELECT courses.*, users.user_id,users.fullname  FROM courses LEFT JOIN users ON users.user_id = courses.user_id where courses.is_confirmed = 1 AND users.email != ? AND courses.is_trash != 1  ORDER BY id DESC LIMIT 0,5";
     sql.query(query,email, (err, res) => {
         if (err) {
         console.log("error: ", err);
@@ -28,7 +28,7 @@ Courses.fetchAllNewCourses = (email,result) => {
     });
 };
 Courses.fetchCourseById = (id,result) => {
-    let query = "SELECT courses.*, users.fullname,users.user_id  FROM courses LEFT JOIN users ON users.user_id = courses.user_id where courses.is_confirmed = 1 AND courses.id = ? AND users.is_trash != 1 ";
+    let query = "SELECT courses.*, users.fullname,users.user_id  FROM courses LEFT JOIN users ON users.user_id = courses.user_id where courses.is_confirmed = 1 AND courses.id = ? ";
     sql.query(query,id, (err, res) => {
         if (err) {
         console.log("error: ", err);
@@ -72,7 +72,7 @@ Courses.fetchAllNewCoursesPaged = (id,page,result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
-    let query = "SELECT *  FROM courses LEFT JOIN users ON users.user_id = courses.user_id where courses.is_confirmed = 1 AND users.user_id != ? AND courses.is_trash != 1 ORDER BY id DESC LIMIT ?,10";
+    let query = "SELECT *  FROM courses LEFT JOIN users ON users.user_id = courses.user_id where courses.is_confirmed = 1 AND users.user_id != ? AND users.is_trash != 1 AND courses.is_trash != 1 ORDER BY id DESC LIMIT ?,10";
     sql.query(query,[id,offset], (err, res) => {
         if (err) {
         console.log("error: ", err);
