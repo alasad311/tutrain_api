@@ -35,17 +35,20 @@ Search.User = (value, page,id, result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
-    let query = "SELECT users.user_id AS id, users.fullname AS title, NULL AS duration,users.hour_price AS price,users.address AS location, users.tags,users.picture AS img, users.rating AS rating, 'user' AS stype, true AS showRate FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?) AND users.type != 'student' AND users.user_id != ?  AND users.tags IS NOT NULL  AND is_trash != 1 AND is_active = 1 limit ?,10";
-    let values = ['%' + value + '%', '%' + value + '%', '%' + value + '%',id, offset]
-    sql.query(query, values, (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(null, err);
-            return;
-        }
-        console.log("users: ", res);
-        result(null, res);
-    });
+        sql.query("SELECT * FROM users WHERE users.user_id = ?", id, (err, res) => {
+            let query = "SELECT users.user_id AS id, users.fullname AS title, NULL AS duration,users.hour_price AS price,users.address AS location, users.tags,users.picture AS img, users.rating AS rating, 'user' AS stype, true AS showRate FROM users WHERE (fullname LIKE ? OR tags like ? OR about like ?) AND users.type != 'student' AND users.user_id != ? AND users.country = ? AND users.tags IS NOT NULL  AND is_trash != 1 AND is_active = 1 limit ?,10";
+            let values = ['%' + value + '%', '%' + value + '%', '%' + value + '%',id,res[0]['country'], offset]
+            sql.query(query, values, (err, res) => {
+                if (err) {
+                    console.log("error: ", err);
+                    result(null, err);
+                    return;
+                }
+                console.log("users: ", res);
+                result(null, res);
+            });
+        });
+    
 };
 Search.Courses = (value, page, result) => {
     let offset = 0;
