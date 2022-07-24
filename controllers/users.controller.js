@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
     filename: function(req, file, callback) {
         const extension = path.extname(file.originalname).toLowerCase();
         const randamString = Math.random().toString(36).substring(2, 15) + Math.random().toString(23).substring(2, 5);
-        callback(null, randamString + ".jpg");
+        callback(null, randamString + extension);
     },
 });
 let upload = multer({ storage: storage }).single('tutrainPro');
