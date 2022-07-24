@@ -562,7 +562,23 @@ User.uploadProfile = (profile, id, body, result) => {
         });
     });
 }
-
+User.uploadBio = (bioVido, id, result) => {
+    sql.query("UPDATE users SET updated_by = ?, introvideo = ? WHERE user_id = ? ", [id,bioVido, id], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        sql.query("SELECT * FROM users where is_confirmed = 1 AND user_id = ? AND is_trash != 1 AND is_active = 1", id, (err, ress) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+            result(null, { results: "success", user: ress });
+        });
+    });
+}
 User.changePassword = (id, body, result) => {
     sql.query("SELECT * FROM users where user_id = ? AND is_trash != 1 AND is_active = 1", id, (err, res) => {
         if (err) {
