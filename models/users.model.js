@@ -563,6 +563,7 @@ User.uploadProfile = (profile, id, body, result) => {
     });
 }
 User.uploadBio = (bioVido, id, result) => {
+    bioVido = 'https://tapp.scd.edu.om/uploads/'+bioVido;
     sql.query("UPDATE users SET updated_by = ?, introvideo = ? WHERE user_id = ? ", [id,bioVido, id], (err, res) => {
         if (err) {
             console.log("error: ", err);
