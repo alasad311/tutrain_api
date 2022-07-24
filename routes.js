@@ -34,7 +34,8 @@ module.exports = app => {
 
 
     router.post("/users/upload", users.uploadProfile);
-
+    router.post("/users/uploadbio", users.uploadBio);
+    
     router.post("/payout/request", users.createPayoutRequest);
     //Ads
     router.get("/ads", ads.allAds);
