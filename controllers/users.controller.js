@@ -3,10 +3,10 @@ var path = require('path');
 var useragent = require('express-useragent');
 const multer = require('multer');
 const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
+    destination: function(req, file, callback) {
         callback(null, './www/uploads/');
     },
-    fileFilter: function (req, file, cb) {
+    fileFilter: function(req, file, cb) {
         const extension = path.extname(file.originalname).toLowerCase();
         const mimetyp = file.mimetype;
         if (
@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
             cb('error message', true);
         }
     },
-    filename: function (req, file, callback) {
+    filename: function(req, file, callback) {
         const extension = path.extname(file.originalname).toLowerCase();
         const randamString = Math.random().toString(36).substring(2, 15) + Math.random().toString(23).substring(2, 5);
         callback(null, randamString + ".jpg");
@@ -60,6 +60,7 @@ exports.create = (req, res) => {
         id_card: req.body.id_card,
         about: req.body.about,
         pushtoken: req.body.pushtoken,
+        introvideo: req.body.introvideo,
         membership: 0,
         is_active: 1,
         created_by: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
@@ -410,7 +411,7 @@ exports.changePassword = (req, res) => {
         });
         return;
     }
-    Users.changePassword(req.params.id,req.body, (err, data) => {
+    Users.changePassword(req.params.id, req.body, (err, data) => {
         if (err)
             res.status(200).send({
                 code: err.code,
@@ -420,7 +421,7 @@ exports.changePassword = (req, res) => {
         });
     });
 }
-exports.uploadProfile  = (req, res, next) => {
+exports.uploadProfile = (req, res, next) => {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
     const userID = req.headers['userid']
@@ -430,7 +431,7 @@ exports.uploadProfile  = (req, res, next) => {
         });
         return;
     }
-    upload(req, res, function (err) {
+    upload(req, res, function(err) {
         if (err instanceof multer.MulterError) {
             res.status(200).send({
                 code: err.code,
@@ -440,9 +441,8 @@ exports.uploadProfile  = (req, res, next) => {
                 code: err.code,
             });
         }
-        if(req.file)
-        {
-            Users.uploadProfile(req.file.filename,userID,req.body, (err, data) => {
+        if (req.file) {
+            Users.uploadProfile(req.file.filename, userID, req.body, (err, data) => {
                 if (err)
                     res.status(200).send({
                         code: err.code,
@@ -451,8 +451,8 @@ exports.uploadProfile  = (req, res, next) => {
                     response: data
                 });
             });
-        }else{
-            Users.uploadProfile(null,userID,req.body, (err, data) => {
+        } else {
+            Users.uploadProfile(null, userID, req.body, (err, data) => {
                 if (err)
                     res.status(200).send({
                         code: err.code,
@@ -462,5 +462,5 @@ exports.uploadProfile  = (req, res, next) => {
                 });
             });
         }
-      })
+    })
 }

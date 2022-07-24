@@ -28,6 +28,7 @@ const User = function(user) {
     this.is_confirmed = user.is_confirmed;
     this.confirm_code = user.confirm_code;
     this.pushtoken = user.pushtoken;
+    this.introvideo = user.introvideo;
 };
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
@@ -498,65 +499,54 @@ User.getAllSession = (id, page, result) => {
     });
 }
 
-User.uploadProfile = (profile,id,body, result) => {
+User.uploadProfile = (profile, id, body, result) => {
 
     let details = "";
-    if(body.fullname)
-    {
-        details = ",fullname = '"+body.fullname+"'";
+    if (body.fullname) {
+        details = ",fullname = '" + body.fullname + "'";
     }
-    if(body.dob){
-        details += ",dateofbirth = '"+body.dob+"'";
+    if (body.dob) {
+        details += ",dateofbirth = '" + body.dob + "'";
     }
-    if(body.country){
-        details += ",country = '"+body.country+"'";
+    if (body.country) {
+        details += ",country = '" + body.country + "'";
     }
-    if(body.phone){
-        details += ",phone = '"+body.phone+"'";
+    if (body.phone) {
+        details += ",phone = '" + body.phone + "'";
     }
-    if(profile)
-    {
-        details += ",picture = 'https://tapp.scd.edu.om/uploads/"+profile+"'";
+    if (profile) {
+        details += ",picture = 'https://tapp.scd.edu.om/uploads/" + profile + "'";
     }
-    if(body.deg)
-    {
-        details += ",degree = '"+body.deg+"'";
+    if (body.deg) {
+        details += ",degree = '" + body.deg + "'";
     }
-    if(body.spec)
-    {
-        details += ",specialization = '"+body.spec+"'";
+    if (body.spec) {
+        details += ",specialization = '" + body.spec + "'";
     }
-    if(body.address)
-    {
-        details += ",address = '"+body.address+"'";
+    if (body.address) {
+        details += ",address = '" + body.address + "'";
     }
-    if(body.about)
-    {
-        details += ",about = '"+sanitizer.sanitize(body.about).replace("'", '')+"'";
+    if (body.about) {
+        details += ",about = '" + sanitizer.sanitize(body.about).replace("'", '') + "'";
     }
-    if(body.tags)
-    {
-        details += ",tags = '"+sanitizer.sanitize(body.tags).replace("'", '')+"'";
+    if (body.tags) {
+        details += ",tags = '" + sanitizer.sanitize(body.tags).replace("'", '') + "'";
     }
-    if(body.isemail)
-    {
-        details += ",is_email = '"+body.isemail+"'";
+    if (body.isemail) {
+        details += ",is_email = '" + body.isemail + "'";
     }
-    if(body.isphone)
-    {
-        details += ",is_phone = '"+body.isphone+"'";
+    if (body.isphone) {
+        details += ",is_phone = '" + body.isphone + "'";
     }
-    if(body.iswhatsapp)
-    {
-        details += ",is_whatapp = '"+body.iswhatsapp+"'";
+    if (body.iswhatsapp) {
+        details += ",is_whatapp = '" + body.iswhatsapp + "'";
     }
-    if(body.hourcost)
-    {
-        details += ",hour_price = '"+body.hourcost+"'";
+    if (body.hourcost) {
+        details += ",hour_price = '" + body.hourcost + "'";
     }
 
-    
-    sql.query("UPDATE users SET updated_by = ? "+details+" WHERE user_id = ? ", [id,id], (err, res) => {
+
+    sql.query("UPDATE users SET updated_by = ? " + details + " WHERE user_id = ? ", [id, id], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
@@ -568,7 +558,7 @@ User.uploadProfile = (profile,id,body, result) => {
                 result(null, err);
                 return;
             }
-            result(null, { results: "success" , user:ress});
+            result(null, { results: "success", user: ress });
         });
     });
 }
@@ -582,24 +572,23 @@ User.changePassword = (id, body, result) => {
         }
         if (res.length) {
 
-               if(validatePassword(body.oldpassword, res[0].password))
-               {
-                const newPassword =  securePassword(body.newpassword);
+            if (validatePassword(body.oldpassword, res[0].password)) {
+                const newPassword = securePassword(body.newpassword);
 
                 sql.query("UPDATE users SET password = ? where user_id = ? AND is_trash != 1 AND is_active = 1", [newPassword, id], (err, res) => {
                     if (err) {
                         result(null, false);
                         return;
-                    }else{
-                        result(null,true);
+                    } else {
+                        result(null, true);
                     }
                 });
 
 
-               }else{
+            } else {
                 result(null, false)
-               }
-            
+            }
+
 
         } else {
             result(null, false)
