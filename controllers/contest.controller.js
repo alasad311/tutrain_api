@@ -115,6 +115,8 @@ exports.contestWinner = (req, res) => {
             res.status(200).send({
                 code: err.code,
             });
-        else res.send(data);
+        else res.send({
+            response: data
+        });
     });
 }
