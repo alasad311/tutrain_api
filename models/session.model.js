@@ -63,7 +63,7 @@ Session.deleteSession = (id,result) =>{
         result(null, err);
         return;
         }
-        if (res.length == 0) {
+        if (res[0]['totalSeatsTaken'] == 0) {
             sql.query("UPDATE course_session SET is_trash = 1 WHERE id = ?",id,(err,res)=>{
                 result(null,true)
             })
