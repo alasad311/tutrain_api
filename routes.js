@@ -62,6 +62,7 @@ module.exports = app => {
     router.get("/search/users/:value/:page", search.searchUser);
     router.get("/search/courses/:value/:page", search.searchCourses);
     router.get("/search/sessions/:value/:page", search.searchSessions);
+    router.get("/search/user/sessions/:value/:page", search.searchUserSessions);
 
     //Orders
     router.post("/order", order.createOrder)
