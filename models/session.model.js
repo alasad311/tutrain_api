@@ -55,4 +55,22 @@ Session.getNumberOfSeats = (id,result) => {
         result(null, res);
     });
 };
+Session.deleteSession = (id,result) =>{
+    let query = "SELECT COUNT(orders.id) AS totalSeatsTaken FROM orders WHERE orders.session_id = ?";
+    sql.query(query,[id], (err, res) => {
+        if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+        }
+        if (res.length == 0) {
+            sql.query("UPDATE course_session SET is_trash = 1 WHERE id = ?",id,(err,res)=>{
+                result(null,true)
+            })
+        }else{
+            result(null,false)
+        }
+        
+    });
+}
 module.exports = Session;
