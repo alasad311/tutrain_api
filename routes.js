@@ -35,7 +35,7 @@ module.exports = app => {
 
     router.post("/users/upload", users.uploadProfile);
     router.post("/users/uploadbio", users.uploadBio);
-    
+
     router.post("/payout/request", users.createPayoutRequest);
     //Ads
     router.get("/ads", ads.allAds);
@@ -46,11 +46,11 @@ module.exports = app => {
 
     //Courses
     router.get("/courses/new/:email", course.allNewCourses)
-    router.get("/courses/allnew/:page",course.fetchAllNewCoursesPaged)
+    router.get("/courses/allnew/:page", course.fetchAllNewCoursesPaged)
     router.get("/course/:id", course.getCourseById)
     router.get("/course/sections/:id", course.getCourseSections)
     router.get("/course/paied/:id/:user", course.getPaidStatus)
-    router.get("/course/paied/:id/:user", course.getPaidStatus)
+    router.get("/course/trailer/:id/:user", course.getCourseTrailer)
 
     //Sessions
     router.get("/session/:id", session.getSessionById)
