@@ -88,7 +88,7 @@ Search.searchUserSessions = (value, page, result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
-    let query = "SELECT course_session.id AS id, course_session.session_name AS title, course_session.duration AS duration,course_session.price AS price, course_session.location AS location,course_session.tags, course_session.img AS img, null AS rating, 'session' AS stype, false AS showRate FROM course_session WHERE (session_name LIKE ? OR description like ? OR location like ? OR tags like ?)  AND is_trash != 1 ORDER BY id DESC limit ?,10";
+    let query = "SELECT course_session.id AS id, course_session.session_name AS title, course_session.duration AS duration,course_session.price AS price, course_session.location AS location,course_session.tags, course_session.img AS img, null AS rating, 'session' AS stype, false AS showRate, CASE WHEN enddate >= NOW() THEN 'active' ELSE 'inactive' END AS expiration FROM course_session WHERE (session_name LIKE ? OR description like ? OR location like ? OR tags like ?)  AND is_trash != 1 ORDER BY id DESC limit ?,10";
     let values = ['%' + value + '%', '%' + value + '%', '%' + value + '%', '%' + value + '%',offset]
     sql.query(query, values, (err, res) => {
         if (err) {
