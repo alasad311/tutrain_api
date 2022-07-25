@@ -29,40 +29,40 @@ Contest.getSubs = (result) => {
         result(null, res);
     });
 };
-Contest.getQuestions  = (id,result) => {
+Contest.getQuestions = (id, result) => {
     let query = "SELECT * FROM contest LEFT JOIN contest_question ON contest_question.contest_id = contest.id LEFT JOIN question_choice ON question_choice.question_id = contest_question.id WHERE contest.id = ?  ";
     var options = { sql: query, nestTables: true };
     var nestingOptions = [
-        { tableName : 'contest', pkey: 'id'},
-        { tableName : 'contest_question', pkey: 'id', fkeys:[{table:'contest',col:'contest_id'}]},
-        { tableName : 'question_choice', pkey: 'id', fkeys:[{table:'contest_question',col:'question_id'}]},
+        { tableName: 'contest', pkey: 'id' },
+        { tableName: 'contest_question', pkey: 'id', fkeys: [{ table: 'contest', col: 'contest_id' }] },
+        { tableName: 'question_choice', pkey: 'id', fkeys: [{ table: 'contest_question', col: 'question_id' }] },
     ];
-    sql.query(options,id, (err, response) => {
+    sql.query(options, id, (err, response) => {
         if (err) {
-        console.log("error: ", err);
-        result(null, err);
-        return;
+            console.log("error: ", err);
+            result(null, err);
+            return;
         }
         var nestedRows = nested.convertToNested(response, nestingOptions);
         result(null, nestedRows);
     });
 };
-Contest.checkAnswererd  = (id,userid,result) => {
+Contest.checkAnswererd = (id, userid, result) => {
     let query = "SELECT * FROM user_answer WHERE user_answer.user_id = ? AND user_answer.contest_id = ?";
-    sql.query(query, [userid,id], (err, res) => {
+    sql.query(query, [userid, id], (err, res) => {
         if (err) {
             result(null, err);
             return;
         }
 
-        if(res.length){result(null, { isAnswererd: true, value: res[0].answer_id});}else{result(null, { isAnswererd: false});}
+        if (res.length) { result(null, { isAnswererd: true, value: res[0].answer_id }); } else { result(null, { isAnswererd: false }); }
 
-        
+
     });
 };
-Contest.submitAnswer = (answerID,contestID,userID,result) => {
+Contest.submitAnswer = (answerID, contestID, userID, result) => {
     let query = "INSERT INTO user_answer(user_id,contest_id,answer_id) VALUES(?,?,?)";
-    sql.query(query, [userID,contestID,answerID], (err, res) => {
+    sql.query(query, [userID, contestID, answerID], (err, res) => {
         if (err) {
             result(null, err);
             return;
@@ -70,7 +70,26 @@ Contest.submitAnswer = (answerID,contestID,userID,result) => {
 
         result(null, { id: res.insertId });
 
-        
+
     });
 };
+Contest.contestWinner = (result) => {
+    let query = `SELECT * 
+    FROM contest_winner
+    LEFT JOIN users ON users.user_id = contest_winner.user_id
+    LEFT JOIN contest ON contest.id = contest_winner.contest_id
+    ORDER BY contest_winner.id DESC
+    LIMIT 0,7
+    `
+    sql.query(query, (err, res) => {
+        if (err) {
+            result(null, err);
+            return;
+        }
+
+        result(null, res);
+
+
+    });
+}
 module.exports = Contest;

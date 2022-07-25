@@ -77,6 +77,7 @@ module.exports = app => {
 
     //contest
     router.get('/contest', contest.checkContest)
+    router.get('/contest/winner', contest.contestWinner)
     router.get('/contest/:id', contest.getQuestions)
     router.post('/contest/:id', contest.submitAnswer)
     router.get('/contest/:id/answered', contest.checkAnswererd)
