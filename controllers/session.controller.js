@@ -26,7 +26,7 @@ const storage = multer.diskStorage({
         callback(null, randamString + extension);
     },
 });
-let upload = multer({ storage: storage }).single('tutrainPro');
+let upload = multer({ storage: storage }).single('tutrainSession');
 
 exports.getSessionById = (req, res) => {
     const authHeader = req.headers['authorization']
