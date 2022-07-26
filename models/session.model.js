@@ -102,8 +102,8 @@ Session.sessionUpdate = (image, id, body, result) => {
     if (body.enddate) {
         details += ",enddate = '" + body.enddate + "'";
     }
-    if (body.map) {
-        details += ",map = '" + body.map + "'";
+    if (body.sessionmap) {
+        details += ",map = '" + body.sessionmap + "'";
     }
 
     sql.query("UPDATE course_session SET id = ? " + details + " WHERE id = ? ", [id, id], (err, res) => {
