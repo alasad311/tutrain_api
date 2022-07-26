@@ -57,7 +57,7 @@ Session.getNumberOfSeats = (id, result) => {
     });
 };
 Session.getAllSeats = (id, result) => {
-    let query = "SELECT users.picture,users.fullname,users.email,order.date,users.country FROM orders LEFT JOIN users ON users.user_id = orders.user_id WHERE orders.session_id = ?";
+    let query = "SELECT users.picture,users.fullname,users.email,orders.date,users.country FROM orders LEFT JOIN users ON users.user_id = orders.user_id WHERE orders.session_id = ?";
     sql.query(query, [id], (err, res) => {
         if (err) {
             console.log("error: ", err);
