@@ -52,6 +52,7 @@ module.exports = app => {
     router.get("/course/sections/:id", course.getCourseSections)
     router.get("/course/paied/:id/:user", course.getPaidStatus)
     router.get("/course/trailer/:id/:user", course.getCourseTrailer)
+    router.get("/course/delete/:id", course.deleteCourse)
 
     //Sessions
     router.get("/session/:id", session.getSessionById)

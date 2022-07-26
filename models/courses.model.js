@@ -95,4 +95,14 @@ Courses.fetchAllNewCoursesPaged = (id, page, result) => {
         result(null, res);
     });
 };
+Courses.deleteCourse = (id, result) => {
+    sql.query("UPDATE courses SET is_trash = 1 WHERE id = ?", id, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, true)
+    })
+}
 module.exports = Courses;
