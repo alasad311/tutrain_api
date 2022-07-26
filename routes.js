@@ -56,7 +56,10 @@ module.exports = app => {
     router.get("/session/:id", session.getSessionById)
     router.get("/session/paied/:id/:user", session.getPaidStatus)
     router.get("/session/counter/:id", session.getNumberOfSeats)
-    router.get("/session/delete/:id",session.deleteSession)
+    router.get("/session/delete/:id", session.deleteSession)
+
+    router.get("/session/:id/upload", session.sessionUpload)
+    router.get("/session/:id/update", session.sessionUpdate)
 
     //Search
     router.get("/search/all/:value/:page", search.searchAll);
