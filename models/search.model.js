@@ -104,7 +104,7 @@ Search.searchUserCourses= (value, page,id, result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
-    let query = "SELECT * WHERE (courses.name LIKE ? OR courses.description like ? OR courses.code like ? OR courses.tags like ?) AND courses.is_trash != 1 AND users.is_trash != 1 AND courses.user_id = ? limit ?,10";
+    let query = "SELECT * FROM courses WHERE (courses.name LIKE ? OR courses.description like ? OR courses.code like ? OR courses.tags like ?) AND courses.is_trash != 1 AND courses.user_id = ? limit ?,10";
     let values = ['%' + value + '%', '%' + value + '%', '%' + value + '%', '%' + value + '%', id, offset]
     sql.query(query, values, (err, res) => {
         if (err) {
