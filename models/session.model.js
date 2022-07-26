@@ -75,26 +75,26 @@ Session.deleteSession = (id, result) => {
 }
 Session.sessionUpdate = (image, id, body, result) => {
     let details = "";
-    if (body.session_name) {
-        details = ",session_name = '" + body.session_name + "'";
+    if (body.sessionname) {
+        details = ",session_name = '" + body.sessionname + "'";
     }
-    if (body.location) {
-        details += ",location = '" + body.location + "'";
+    if (body.sessionlocation) {
+        details += ",location = '" + body.sessionlocation + "'";
     }
-    if (body.description) {
-        details += ",description = '" + sanitizer.sanitize(body.description).replace("'", '') + "'";
+    if (body.sessiondescription) {
+        details += ",description = '" + sanitizer.sanitize(body.sessiondescription).replace("'", '') + "'";
     }
     if (image) {
         details += ",img = 'https://tapp.scd.edu.om/uploads/" + image + "'";
     }
-    if (body.tags) {
-        details += ",tags = '" + sanitizer.sanitize(body.tags).replace("'", '') + "'";
+    if (body.sessiontag) {
+        details += ",tags = '" + sanitizer.sanitize(body.sessiontag).replace("'", '') + "'";
     }
-    if (body.duration) {
-        details += ",duration = '" + body.duration + "'";
+    if (body.sessionduration) {
+        details += ",duration = '" + body.sessionduration + "'";
     }
-    if (body.agenda) {
-        details += ",agenda = '" + body.agenda + "'";
+    if (body.sessionagenda) {
+        details += ",agenda = '" + body.sessionagenda + "'";
     }
     if (body.startdate) {
         details += ",startdate = '" + body.startdate + "'";
@@ -106,7 +106,7 @@ Session.sessionUpdate = (image, id, body, result) => {
         details += ",map = '" + body.map + "'";
     }
 
-    sql.query("UPDATE course_session SET " + details + " WHERE id = ? ", [id], (err, res) => {
+    sql.query("UPDATE course_session SET id = ? " + details + " WHERE id = ? ", [id, id], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
