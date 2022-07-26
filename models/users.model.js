@@ -489,7 +489,7 @@ User.getAllSession = (id, page, result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
-    sql.query("SELECT *, CASE WHEN course_session.startdate <= NOW() THEN 1 ELSE 0 END AS expiration FROM course_session  WHERE course_session.user_id = ? AND course_session.is_trash != 1 ORDER BY id DESC LIMIT ?,10", [id, offset], (err, res) => {
+    sql.query("SELECT *, CASE WHEN course_session.startdate <= NOW() THEN 0 ELSE 1 END AS expiration FROM course_session  WHERE course_session.user_id = ? AND course_session.is_trash != 1 ORDER BY id DESC LIMIT ?,10", [id, offset], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);

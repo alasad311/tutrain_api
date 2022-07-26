@@ -88,7 +88,7 @@ Search.searchUserSessions = (value, page, result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
-    let query = "SELECT *, CASE WHEN startdate <= NOW() THEN 1 ELSE 0 END AS expiration FROM course_session WHERE (session_name LIKE ? OR description like ? OR location like ? OR tags like ?)  AND is_trash != 1 ORDER BY id DESC limit ?,10";
+    let query = "SELECT *, CASE WHEN startdate <= NOW() THEN 0 ELSE 1 END AS expiration FROM course_session WHERE (session_name LIKE ? OR description like ? OR location like ? OR tags like ?)  AND is_trash != 1 ORDER BY id DESC limit ?,10";
     let values = ['%' + value + '%', '%' + value + '%', '%' + value + '%', '%' + value + '%', offset]
     sql.query(query, values, (err, res) => {
         if (err) {
