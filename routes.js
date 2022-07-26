@@ -30,6 +30,7 @@ module.exports = app => {
     router.get("/users/:id/delete", users.deleteUser);
     router.post("/users/:id/password", users.changePassword);
     router.get("/users/:id/all/sessions/:page", users.getAllSession);
+    router.get("/users/:id/all/courses/:page", users.getAllCourses);
     router.get("/users/:email/order/courses", users.getAllCourseOrders);
 
 
@@ -69,6 +70,7 @@ module.exports = app => {
     router.get("/search/courses/:value/:page", search.searchCourses);
     router.get("/search/sessions/:value/:page", search.searchSessions);
     router.get("/search/user/sessions/:value/:page", search.searchUserSessions);
+    router.get("/search/user/courses/:value/:page", search.searchUserCourses);
 
     //Orders
     router.post("/order", order.createOrder)

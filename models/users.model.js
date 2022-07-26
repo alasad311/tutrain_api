@@ -498,7 +498,19 @@ User.getAllSession = (id, page, result) => {
         result(null, res);
     });
 }
-
+User.getAllCourses = (id, page, result) => {
+    let offset = 0;
+    if (page != 0)
+        offset = page * 10;
+    sql.query("SELECT * FROM courses  WHERE courses.user_id = ? AND courses.is_trash != 1 ORDER BY id DESC LIMIT ?,10", [id, offset], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, res);
+    });
+}
 User.uploadProfile = (profile, id, body, result) => {
 
     let details = "";

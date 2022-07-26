@@ -84,12 +84,28 @@ Search.searchSessions = (value, id, page, result) => {
         result(null, res);
     });
 };
-Search.searchUserSessions = (value, page, result) => {
+Search.searchUserSessions = (value, page,id, result) => {
     let offset = 0;
     if (page != 0)
         offset = page * 10;
-    let query = "SELECT *, CASE WHEN startdate <= NOW() THEN 0 ELSE 1 END AS expiration FROM course_session WHERE (session_name LIKE ? OR description like ? OR location like ? OR tags like ?)  AND is_trash != 1 AND is_confirmed = 1 ORDER BY id DESC limit ?,10";
-    let values = ['%' + value + '%', '%' + value + '%', '%' + value + '%', '%' + value + '%', offset]
+    let query = "SELECT *, CASE WHEN startdate <= NOW() THEN 0 ELSE 1 END AS expiration FROM course_session WHERE (session_name LIKE ? OR description like ? OR location like ? OR tags like ?) AND user_id = ?  AND is_trash != 1 AND is_confirmed = 1 ORDER BY id DESC limit ?,10";
+    let values = ['%' + value + '%', '%' + value + '%', '%' + value + '%', '%' + value + '%',id, offset]
+    sql.query(query, values, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        console.log("users: ", res);
+        result(null, res);
+    });
+};
+Search.searchUserCourses= (value, page,id, result) => {
+    let offset = 0;
+    if (page != 0)
+        offset = page * 10;
+    let query = "SELECT courses.id AS id, courses.name AS title, courses.duration AS duration,courses.price AS price, 'Online' AS location,courses.tags, courses.img AS img, courses.rating AS rating, 'course' AS stype, true AS showRate FROM courses LEFT JOIN users ON users.user_id = courses.user_id WHERE (courses.name LIKE ? OR courses.description like ? OR courses.code like ? OR courses.tags like ?) AND courses.is_trash != 1 AND users.is_trash != 1 AND courses.user_id = ? limit ?,10";
+    let values = ['%' + value + '%', '%' + value + '%', '%' + value + '%', '%' + value + '%', id, offset]
     sql.query(query, values, (err, res) => {
         if (err) {
             console.log("error: ", err);
