@@ -106,7 +106,7 @@ Session.sessionUpdate = (image, id, body, result) => {
         details += ",map = '" + body.sessionmap + "'";
     }
 
-    sql.query("UPDATE course_session SET id = ? " + details + " WHERE id = ? ", [id, id], (err, res) => {
+    sql.query("UPDATE course_session SET update_on = NOW() " + details + " WHERE id = ? ", [id], (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
