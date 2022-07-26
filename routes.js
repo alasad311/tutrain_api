@@ -59,6 +59,7 @@ module.exports = app => {
     router.get("/session/delete/:id", session.deleteSession)
     router.get("/session/seats/:id", session.getAllSeats)
 
+    router.post("/session/create", session.sessionCreate)
     router.post("/session/:id/upload", session.sessionUpload)
     router.post("/session/:id/update", session.sessionUpdate)
 

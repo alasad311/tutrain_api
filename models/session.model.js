@@ -128,4 +128,15 @@ Session.sessionUpdate = (image, id, body, result) => {
         result(null, { results: "success" });
     });
 }
+Session.sessionCreate  = (image, id, body, result) => {
+    image = 'https://tapp.scd.edu.om/uploads/' + image;
+    sql.query("INSERT INTO course_session(session_name, location, description, tags, duration, price, lang, seats, agenda, startdate, enddate, map, img, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", [body.sessionname,body.sessionlocation,body.sessiondescription,body.sessiontag,body.sessionduration,body.sessionprice,body.sessionlang,body.sessionseats,body.sessionagenda,body.startdate,body.enddate,image,body.sessionmap,id], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        result(null, { results: "success" });
+    });
+}
 module.exports = Session;
