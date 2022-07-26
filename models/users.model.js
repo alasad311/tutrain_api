@@ -527,10 +527,10 @@ User.uploadProfile = (profile, id, body, result) => {
         details += ",address = '" + body.address + "'";
     }
     if (body.about) {
-        details += ",about = '" + sanitizer.sanitize(body.about).replace("'", '') + "'";
+        details += ",about = '" + sanitizer.sanitize(body.about).replaceAll("'", '') + "'";
     }
     if (body.tags) {
-        details += ",tags = '" + sanitizer.sanitize(body.tags).replace("'", '') + "'";
+        details += ",tags = '" + sanitizer.sanitize(body.tags).replaceAll("'", '') + "'";
     }
     if (body.isemail) {
         details += ",is_email = '" + body.isemail + "'";
