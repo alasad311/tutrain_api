@@ -125,7 +125,7 @@ exports.getAllSeats = (req, res) => {
                 code: err.code,
             });
         else res.send({
-            result: data
+            response: data
         });
     });
 }
