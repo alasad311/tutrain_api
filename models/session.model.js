@@ -83,13 +83,13 @@ Session.sessionUpdate = (image, id, body, result) => {
         details += ",location = '" + body.sessionlocation + "'";
     }
     if (body.sessiondescription) {
-        details += ",description = '" + sanitizer.escape(body.sessiondescription).replace("'", '') + "'";
+        details += ",description = '" + sanitizer.sanitize(body.sessiondescription.replace("'", '')) + "'";
     }
     if (image) {
         details += ",img = 'https://tapp.scd.edu.om/uploads/" + image + "'";
     }
     if (body.sessiontag) {
-        details += ",tags = '" + sanitizer.escape(body.sessiontag).replace("'", '') + "'";
+        details += ",tags = '" + sanitizer.sanitize(body.sessiontag.replace("'", '')) + "'";
     }
     if (body.sessionduration) {
         details += ",duration = '" + body.sessionduration + "'";
