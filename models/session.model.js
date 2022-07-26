@@ -1,5 +1,6 @@
 const sql = require("./db.js");
 const nested = require("node-mysql-nesting")
+var sanitizer = require('sanitizer');
 const Session = function(session) {
     this.session_name = session.session_name;
     this.location = session.location;
